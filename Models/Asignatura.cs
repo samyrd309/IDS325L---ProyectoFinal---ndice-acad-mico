@@ -6,6 +6,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
     public partial class Asignatura
     {
 
+        {
+            Seccions = new HashSet<Seccion>();
+        }
+
         public string CodigoAsignatura { get; set; } = null!;
         public string CodigoArea { get; set; } = null!;
         public int Credito { get; set; }

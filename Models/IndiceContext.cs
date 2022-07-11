@@ -18,12 +18,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
 
         public virtual DbSet<AreaAcademica> AreaAcademicas { get; set; } = null!;
         public virtual DbSet<Asignatura> Asignaturas { get; set; } = null!;
-        public virtual DbSet<Calificacion> Calificacions { get; set; } = null!;
         public virtual DbSet<Carrera> Carreras { get; set; } = null!;
         public virtual DbSet<Literal> Literals { get; set; } = null!;
         public virtual DbSet<Persona> Personas { get; set; } = null!;
         public virtual DbSet<Rol> Rols { get; set; } = null!;
-        public virtual DbSet<Seccion> Seccions { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -56,7 +54,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.VigenciaArea).HasDefaultValueSql("((1))");
+                entity.Property(e => e.VigenciaArea)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Asignatura>(entity =>
@@ -113,6 +113,12 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
 
                 entity.Property(e => e.Nota).HasMaxLength(2);
 
+                entity.Property(e => e.Trimestre)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("([dbo].[TrimestreAct]())")
+                    .IsFixedLength();
+
                 entity.Property(e => e.VigenciaCalificacion).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Id)
@@ -141,7 +147,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.VigenciaCarrera).HasDefaultValueSql("((1))");
+                entity.Property(e => e.VigenciaCarrera)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Literal>(entity =>

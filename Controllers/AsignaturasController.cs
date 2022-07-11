@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IDS325L___ProyectoFinal___Índice_académico.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IDS325L___ProyectoFinal___Índice_académico.Models;
@@ -37,8 +40,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             if (IdAsignatura != 0)
             {
                 oAsignaturasVM.oAsignatura = _indiceContext.Asignaturas.Find(IdAsignatura);
-            }
-                
+        }
+
 
             return View(oAsignaturasVM);
         }
@@ -48,6 +51,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
             if (ModelState.IsValid)
             {
+                var clave = _indiceContext.Asignaturas.FirstOrDefaultAsync(a => a.CodigoAsignatura == oAsignaturaVM.oAsignatura.CodigoAsignatura);
+                if (clave == null)
+                {
+                    return View("Error");
+                }
 
                 if(oAsignaturasVM.oAsignatura.IdAsignatura == 0)
                 {
@@ -59,11 +67,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                         _indiceContext.Asignaturas.Update(oAsignaturasVM.oAsignatura);
 
                     }
-                }
-                else
-                {
+            }
+            else
+            {
                     _indiceContext.Asignaturas.Add(oAsignaturasVM.oAsignatura);
-                }
+            }
 
                 //var clave = _indiceContext.Asignaturas.FirstOrDefaultAsync(a => a.CodigoAsignatura == oAsignaturasVM.oAsignatura.CodigoAsignatura);
                 //var nombre = _indiceContext.Asignaturas.FirstOrDefaultAsync(a => a.NombreAsignatura == oAsignaturasVM.oAsignatura.NombreAsignatura);
@@ -79,7 +87,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 //}
 
                 _indiceContext.SaveChanges();
-               
+
                 return RedirectToAction("Index", "Asignaturas");
             }
             else
