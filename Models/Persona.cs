@@ -22,9 +22,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public decimal Indice { get; set; }
         public string Contraseña { get; set; } = null!;
 
-        public virtual Carrera? oCarrera { get; set; }
-        public virtual AreaAcademica? oAreaAcademica { get; set; }
-        public virtual Rol oRol { get; set; } = null!;
+        public virtual Carrera? CarreraNavigation { get; set; }
+        public virtual AreaAcademica? CodigoAreaNavigation { get; set; }
+        public virtual Rol IdRolNavigation { get; set; } = null!;
         public virtual ICollection<Calificacion> Calificacions { get; set; }
         public virtual ICollection<Seccion> Seccions { get; set; }
     }

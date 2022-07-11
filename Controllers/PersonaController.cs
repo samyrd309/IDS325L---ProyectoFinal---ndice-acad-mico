@@ -19,16 +19,23 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
 
 
-        // GET: PersonaController
+        //Get IndexEstudiantes
         public ActionResult IndexEstudiantes()
         {
-            List<Persona> lista = _indiceContext.Personas.Include(c => c.oRol).Include(c=>c.oCarrera).Include(c=>c.oAreaAcademica).Where(m => m.IdRol.Equals(2) && m.VigenciaPersona.Equals(true)).ToList();
+            List<Persona> lista = _indiceContext.Personas.Include(c => c.IdRolNavigation).Include(c=>c.CarreraNavigation).Include(c=>c.CodigoAreaNavigation).Where(m => m.IdRol.Equals(2) && m.VigenciaPersona.Equals(true)).ToList();
+            return View(lista);
+        }
+        //Get IndexDocentes
+        public ActionResult IndexDocentes()
+        {
+            List<Persona> lista = _indiceContext.Personas.Include(c => c.IdRolNavigation).Include(c => c.CarreraNavigation).Include(c => c.CodigoAreaNavigation).Where(m => m.IdRol.Equals(3) && m.VigenciaPersona.Equals(true)).ToList();
             return View(lista);
         }
 
 
 
-        // GET: PersonaController/Create
+
+        //Get CreateEstudiantes
         [HttpGet]
         public ActionResult CreateEstudiantes(int Matricula)
         {
@@ -57,7 +64,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return View(oEstudianteVM);
         }
 
-        // POST: PersonaController/Create
+        //Post CreateEstudiantes
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateEstudiantes(EstudianteVM oEstudianteVM)
@@ -81,23 +88,86 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return RedirectToAction("IndexEstudiantes", "Persona");
         }
 
-        // GET: PersonaController/Delete/5
+        //Get CreateDocentes
+
+        [HttpGet]
+        public ActionResult CreateDocentes(int Matricula)
+        {
+            DocentesVM oDocenteVM = new DocentesVM()
+            {
+                oPersona = new Persona(),
+                oCarrera = _indiceContext.Carreras.Select(carrera => new SelectListItem()
+                {
+                    Text = carrera.NombreCarrera,
+                    Value = carrera.CodigoCarrera.ToString()
+                }).ToList(),
+
+                oAreaAcademica = _indiceContext.AreaAcademicas.Select(area => new SelectListItem()
+                {
+                    Text = area.NombreArea,
+                    Value = area.CodigoArea.ToString()
+                }).ToList()
+            };
+
+            if (Matricula != 0)
+            {
+                oDocenteVM.oPersona = _indiceContext.Personas.Find(Matricula);
+            }
+
+
+            return View(oDocenteVM);
+        }
+
+        // Post CreateDocentes
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateDocentes(DocentesVM oDocenteVM)
+        {
+            oDocenteVM.oPersona.IdRol = 3;
+            oDocenteVM.oPersona.VigenciaPersona = true;
+            if (oDocenteVM.oPersona.Matricula == 0)
+            {
+                _indiceContext.Personas.Add(oDocenteVM.oPersona);
+            }
+            else
+            {
+                _indiceContext.Personas.Update(oDocenteVM.oPersona);
+
+            }
+
+            _indiceContext.SaveChanges();
+
+            return RedirectToAction("IndexDocentes", "Persona");
+        }
+
+
+        //Get Delete Persona
         public ActionResult Delete(int Matricula)
         {
-            Persona oPersona = _indiceContext.Personas.Include(c=> c.oCarrera).Include(c=>c.oAreaAcademica).Include(c=> c.oRol).Where(c=>c.Matricula == Matricula).FirstOrDefault();
+            Persona oPersona = _indiceContext.Personas.Include(c=> c.CarreraNavigation).Include(c=>c.CodigoAreaNavigation).Include(c=> c.IdRolNavigation).Where(c=>c.Matricula == Matricula).FirstOrDefault();
             return View(oPersona);
         }
 
-        // POST: PersonaController/Delete/5
+        //Post Delete Persona
         [HttpPost]
         public ActionResult Delete(Persona oPersona)
         {
-            oPersona = _indiceContext.Personas.Include(c => c.oCarrera).Include(c => c.oAreaAcademica).Include(c => c.oRol).Where(c => c.Matricula == oPersona.Matricula).FirstOrDefault();
+            oPersona = _indiceContext.Personas.Include(c => c.CarreraNavigation).Include(c => c.CodigoAreaNavigation).Include(c => c.IdRolNavigation).Where(c => c.Matricula == oPersona.Matricula).FirstOrDefault();
             oPersona.VigenciaPersona = false;
-            _indiceContext.Update(oPersona);
             _indiceContext.SaveChanges();
+            _indiceContext.Update(oPersona);
+            if(oPersona.IdRol == 2)
+            {
+                return RedirectToAction("IndexEstudiantes", "Persona");
+            }
 
-            return RedirectToAction("IndexEstudiantes", "Persona");
+            else if (oPersona.IdRol == 3)
+            {
+                return RedirectToAction("IndexDocentes", "Persona");
+            }
+            
+            return View(oPersona);
         }
     }
 }
+

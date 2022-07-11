@@ -12,11 +12,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
 
         public int IdSeccion { get; set; }
         public int? Matricula { get; set; }
-        public string CodigoAsignatura { get; set; } = null!;
+        public int IdAsignatura { get; set; }
         public DateTime? FechaIngresoSección { get; set; }
         public bool? VigenciaSección { get; set; }
 
-        public virtual Asignatura CodigoAsignaturaNavigation { get; set; } = null!;
+        public virtual Asignatura IdAsignaturaNavigation { get; set; } = null!;
         public virtual Persona? MatriculaNavigation { get; set; }
         public virtual ICollection<Calificacion> Calificacions { get; set; }
     }
