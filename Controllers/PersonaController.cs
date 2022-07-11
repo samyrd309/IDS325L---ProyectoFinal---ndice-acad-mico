@@ -22,7 +22,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         // GET: PersonaController
         public ActionResult IndexEstudiantes()
         {
-            List<Persona> lista = _indiceContext.Personas.Include(c => c.oRol).Where(m => m.IdRol.Equals(2)).ToList();
+            List<Persona> lista = _indiceContext.Personas.Include(c => c.oRol).Include(c=>c.oCarrera).Include(c=>c.oAreaAcademica).Where(m => m.IdRol.Equals(2) && m.VigenciaPersona.Equals(true)).ToList();
             return View(lista);
         }
 
@@ -81,46 +81,23 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return RedirectToAction("IndexEstudiantes", "Persona");
         }
 
-        // GET: PersonaController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PersonaController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: PersonaController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int Matricula)
         {
-            return View();
+            Persona oPersona = _indiceContext.Personas.Include(c=> c.oCarrera).Include(c=>c.oAreaAcademica).Include(c=> c.oRol).Where(c=>c.Matricula == Matricula).FirstOrDefault();
+            return View(oPersona);
         }
 
         // POST: PersonaController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Persona oPersona)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            oPersona = _indiceContext.Personas.Include(c => c.oCarrera).Include(c => c.oAreaAcademica).Include(c => c.oRol).Where(c => c.Matricula == oPersona.Matricula).FirstOrDefault();
+            oPersona.VigenciaPersona = false;
+            _indiceContext.Update(oPersona);
+            _indiceContext.SaveChanges();
+
+            return RedirectToAction("IndexEstudiantes", "Persona");
         }
     }
 }

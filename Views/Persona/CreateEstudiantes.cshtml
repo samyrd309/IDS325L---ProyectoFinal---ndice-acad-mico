@@ -3,6 +3,8 @@
     ViewData["Title"] = "CreateEstudiantes";
 }
 
+<h1>Gestionar Estudiantes</h1>
+
 @if(Model.oPersona.Matricula == 0)
 {
     <h1>Crear Estudiante</h1>
@@ -16,42 +18,68 @@ else{
     <div class="col-sm-4">
         <form asp-action="CreateEstudiantes" asp-controller="Persona" method="post">
             <input type="hidden" asp-for="oPersona.Matricula"/>
-            <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.Nombre">Nombre</label>
-                <input class="form-control form-control-sm" asp-for="oPersona.Nombre" type="text"/>
-            </div>
-            <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.Apellido">Apellido</label>
-                <input class="form-control form-control-sm" asp-for="oPersona.Apellido" type="text"/>
-            </div>
-            <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.oAreaAcademica.CodigoArea">Area Academica</label>
-                <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
-                    <option selected disabled>-- Seleccionar --</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.oCarrera.CodigoCarrera">Carrera</label>
-                <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@Model.oCarrera">
-                    <option selected disabled>-- Seleccionar --</option>
-                </select>
-            </div>
-            <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.CorreoElectronico">Correo electronico</label>
-                <input class="form-control form-control-sm" asp-for="oPersona.CorreoElectronico" type="text"/>
-            </div>
-            @if(Model.oPersona.Matricula != 0)
+
+            @if(Model.oPersona.Matricula == 0)
             {
-                <div class="mb-2" style="display:none"> 
-                    <label class="form-label" asp-for="oPersona.Contraseña">Apellido</label>
-                    <input class="form-control form-control-sm" asp-for="oPersona.Contraseña" type="text"/>
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.Nombre">Nombre</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.Nombre" type="text"/>
+                </div>
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.Apellido">Apellido</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.Apellido" type="text"/>
                 </div>
                 
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.oAreaAcademica.CodigoArea">Area Academica</label>
+                    <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
+                        <option selected disabled>-- Seleccionar --</option>
+                    </select>
+                </div>
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.oCarrera.CodigoCarrera">Carrera</label>
+                    <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@Model.oCarrera">
+                        <option selected disabled>-- Seleccionar --</option>
+                    </select>
+                </div>
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.CorreoElectronico">Correo electronico</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.CorreoElectronico" type="text"/>
+                </div>
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.Contraseña">Contraseña</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.Contraseña" type="text"/>
+                </div>
             }
             else
             {
+                 <div class="mb-2 d-none"> 
+                    <label class="form-label" asp-for="oPersona.Nombre">Nombre</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.Nombre" type="text"/>
+                </div>
+                <div class="mb-2 d-none"> 
+                    <label class="form-label" asp-for="oPersona.Apellido">Apellido</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.Apellido" type="text"/>
+                </div>
+                
                 <div class="mb-2"> 
-                    <label class="form-label" asp-for="oPersona.Contraseña">Apellido</label>
+                    <label class="form-label" asp-for="oPersona.oAreaAcademica.CodigoArea">Area Academica</label>
+                    <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
+                        <option selected disabled>-- Seleccionar --</option>
+                    </select>
+                </div>
+                <div class="mb-2"> 
+                    <label class="form-label" asp-for="oPersona.oCarrera.CodigoCarrera">Carrera</label>
+                    <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@Model.oCarrera">
+                        <option selected disabled>-- Seleccionar --</option>
+                    </select>
+                </div>
+                <div class="mb-2 d-none"> 
+                    <label class="form-label" asp-for="oPersona.CorreoElectronico">Correo electronico</label>
+                    <input class="form-control form-control-sm" asp-for="oPersona.CorreoElectronico" type="text"/>
+                </div>
+                <div class="mb-2 d-none"> 
+                    <label class="form-label" asp-for="oPersona.Contraseña">Contraseña</label>
                     <input class="form-control form-control-sm" asp-for="oPersona.Contraseña" type="text"/>
                 </div>
             }
