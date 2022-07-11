@@ -22,7 +22,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         // GET: PersonaController
         public ActionResult IndexEstudiantes()
         {
-            List<Persona> lista = _indiceContext.Personas.Include(c => c.oRol).Where(m => m.IdRol.Equals(2)).ToList();
+            List<Persona> lista = _indiceContext.Personas.Include(c => c.IdRolNavigation).Where(m => m.IdRol.Equals(2)).ToList();
             return View(lista);
         }
 
@@ -59,9 +59,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         {
             oEstudianteVM.oPersona.IdRol = 2;
            if(oEstudianteVM.oPersona.Matricula == 0)
-            {
+           {
                 _indiceContext.Personas.Add(oEstudianteVM.oPersona);
-            }
+           }
 
 
 
@@ -71,21 +71,55 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         }
 
         // GET: PersonaController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult EditEstudiantes(int Matricula)
         {
-            return View();
+            EstudianteVM oEstudianteVM = new EstudianteVM()
+            {
+                oPersona = new Persona(),
+                oCarrera = _indiceContext.Carreras.Select(carrera => new SelectListItem()
+                {
+                    Text = carrera.NombreCarrera,
+                    Value = carrera.CodigoCarrera.ToString()
+                }).ToList(),
+
+                oAreaAcademica = _indiceContext.AreaAcademicas.Select(area => new SelectListItem()
+                {
+                    Text = area.NombreArea,
+                    Value = area.CodigoArea.ToString()
+                }).ToList()
+            };
+
+            if (Matricula != 0)
+            {
+                oEstudianteVM.oPersona = _indiceContext.Personas.Find(Matricula);
+            }
+            
+            return View(oEstudianteVM);
         }
 
         // POST: PersonaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditEstudiantes(EstudianteVM oEstudianteVM)
         {
-            try
+            if(ModelState.IsValid)
             {
+                if (oEstudianteVM.oPersona.Matricula == 0)
+                {
+                    _indiceContext.Personas.Add(oEstudianteVM.oPersona);
+                }
+                else
+                {
+                    oEstudianteVM.oPersona.VigenciaPersona = true;
+                    oEstudianteVM.oPersona.Indice = _indiceContext.Personas.Find(oEstudianteVM.oPersona.Matricula).Indice;
+                    oEstudianteVM.oPersona.Contraseña = _indiceContext.Personas.Find(oEstudianteVM.oPersona.Matricula).Contraseña;
+                    oEstudianteVM.oPersona.IdRol = _indiceContext.Personas.Find(oEstudianteVM.oPersona.Matricula).IdRol;
+                    _indiceContext.Personas.Update(oEstudianteVM.oPersona);
+                    _indiceContext.SaveChanges();
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
                 return View();
             }

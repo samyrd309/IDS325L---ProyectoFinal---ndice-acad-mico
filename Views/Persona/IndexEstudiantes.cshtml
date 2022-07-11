@@ -25,7 +25,7 @@
                 <td>@item.Apellido</td>
                 <td>@item.CorreoElectronico</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Editar</a>
+                    <a class="btn btn-primary btn-sm" asp-action="EditEstudiantes" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Eliminar</a>
                 </td>
             </tr>
