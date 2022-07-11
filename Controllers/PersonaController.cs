@@ -22,7 +22,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         // GET: PersonaController
         public ActionResult IndexEstudiantes()
         {
-            List<Persona> lista = _indiceContext.Personas.Include(c => c.oRol).Where(m => m.IdRol.Equals(2)).ToList();
+            List<Persona> lista = _indiceContext.Personas.Include(c => c.IdRolNavigation).Where(m => m.IdRol.Equals(2)).ToList();
             return View(lista);
         }
 

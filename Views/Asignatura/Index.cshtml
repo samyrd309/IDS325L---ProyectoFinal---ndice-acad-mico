@@ -1,7 +1,7 @@
 ﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Asignatura>
 
 
-<a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Asignaturas">Crear Estudiante</a>
+<a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Asignatura">Crear Estudiante</a>
 
 <table class="table">
     <thead>
@@ -22,7 +22,7 @@
                 <td>@item.CodigoArea</td>
                 <td>@item.Credito</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Asignaturas" asp-route-Matricula="@item.CodigoAsignatura">Editar</a>
+                    <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Asignatura" asp-route-Matricula="@item.CodigoAsignatura">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Persona" asp-route-Matricula="@item.CodigoAsignatura">Eliminar</a>
                 </td>
             </tr>

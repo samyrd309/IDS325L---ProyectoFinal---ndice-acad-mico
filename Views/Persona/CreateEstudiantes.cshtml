@@ -25,13 +25,13 @@ else{
                 <input class="form-control form-control-sm" asp-for="oPersona.Apellido" type="text"/>
             </div>
             <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.oAreaAcademina.CodigoArea">Area Academica</label>
+                <label class="form-label" asp-for="oPersona.CodigoAreaNavigation.CodigoArea">Area Academica</label>
                 <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
                     <option selected disabled>-- Seleccionar --</option>
                 </select>
             </div>
             <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.oCarrera.CodigoCarrera">Carrera</label>
+                <label class="form-label" asp-for="oPersona.CarreraNavigation.CodigoCarrera">Carrera</label>
                 <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@Model.oCarrera">
                     <option selected disabled>-- Seleccionar --</option>
                 </select>
