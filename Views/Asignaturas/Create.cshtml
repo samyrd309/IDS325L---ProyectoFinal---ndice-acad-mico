@@ -1,0 +1,54 @@
+﻿@model IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels.AsignaturasVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@if(Model.oAsignatura.IdAsignatura == 0)
+{
+    <h1>Crear Asignaturas</h1>
+}
+else{
+    <h1>Editar Asignaturas</h1>
+}
+
+
+<div class="row">
+    <div class="col-sm-4">
+        <form asp-action="Create" asp-controller="Asignaturas" method="post">
+            <input type="hidden" asp-action=""/>
+
+            <div class="mb-2"> 
+                <label class="form-label" asp-for="oAsignatura.CodigoAsignatura">Clave</label>
+                <input class="form-control form-control-sm" asp-for="oAsignatura.CodigoAsignatura" type="text"/>
+            </div>
+            <div class="mb-2"> 
+                <label class="form-label" asp-for="oAsignatura.NombreAsignatura">Nombre</label>
+                <input class="form-control form-control-sm" asp-for="oAsignatura.NombreAsignatura" type="text"/>
+            </div>
+            <div class="mb-2"> 
+                <label class="form-label" asp-for="oAsignatura.CodigoAreaNavigation.CodigoArea">Área Academica</label>
+                <select class="form-select form-select-sm" asp-for="oAsignatura.CodigoArea" asp-items="@Model.CodigoAreaNavigation">
+                    <option selected disabled>-- Seleccionar --</option>
+                </select>
+            </div>
+            <div class="mb-2"> 
+                <label class="form-label" asp-for="oAsignatura.Credito">Créditos</label>
+                <input class="form-control form-control-sm" asp-for="oAsignatura.Credito" type="text"/>
+            </div>
+
+            <div class="mb-2"> 
+                @if (Model.oAsignatura.IdAsignatura == 0)
+                {
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                }
+                else{
+                    <button type="submit" class="btn btn-success">Actualizar </button>
+                }
+               <a class="btn btn-dark btn-sm" asp-action="Create" asp-controller="Asignaturas">Volver  </a>
+             </div>
+
+            
+        </form>
+    </div>
+</div>

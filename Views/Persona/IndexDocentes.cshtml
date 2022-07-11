@@ -1,20 +1,7 @@
 ﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Persona>
 
-<div class="row">
-    <div class="col-6">
-        <form asp-action="IndexEstudiantes" asp-controller="Persona" method="post">
-            <div class="input-group mb-3">
-            
-                <input type="text" class="form-control">
-                <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-             </div>
-         </form>
-    </div>
-    <div class="col-6">
-        <a class="btn btn-success btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona">Crear Estudiante</a>
-    </div>
-</div>
 
+<a class="btn btn-success btn-sm" asp-action="CreateDocentes" asp-controller="Persona">Crear Estudiante</a>
 
 <table class="table">
     <thead>
@@ -38,7 +25,7 @@
                 <td>@item.Apellido</td>
                 <td>@item.CorreoElectronico</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Editar</a>
+                    <a class="btn btn-primary btn-sm" asp-action="CreateDocentes" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Eliminar</a>
                 </td>
             </tr>

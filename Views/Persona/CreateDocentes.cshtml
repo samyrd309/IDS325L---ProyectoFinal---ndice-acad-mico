@@ -1,22 +1,21 @@
-﻿@model IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels.EstudianteVM
+﻿@model IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels.DocentesVM
 @{
-    ViewData["Title"] = "CreateEstudiantes";
+    ViewData["Title"] = "CreateDocentes";
 }
 
-<h1>Gestionar Estudiantes</h1>
 
 @if(Model.oPersona.Matricula == 0)
 {
-    <h1>Crear Estudiante</h1>
+    <h1>Crear Docentes</h1>
 }
 else{
-    <h1>Editar Estudiante</h1>
+    <h1>Editar Docentes</h1>
 }
 
 
 <div class="">
     <div class="col-sm-4">
-        <form asp-action="CreateEstudiantes" asp-controller="Persona" method="post">
+        <form asp-action="CreateDocentes" asp-controller="Persona" method="post">
             <input type="hidden" asp-for="oPersona.Matricula"/>
 
             @if(Model.oPersona.Matricula == 0)
@@ -95,7 +94,7 @@ else{
                     <button class="btn btn-success btn-sm w-25" type="submit">Actualizar</button>
                 }
 
-                <a class="btn btn-dark btn-sm" asp-action="IndexEstudiantes" asp-controller="Persona">Volver  </a>
+                <a class="btn btn-dark btn-sm" asp-action="IndexDocentes" asp-controller="Persona">Volver  </a>
              </div>
 
         </form>

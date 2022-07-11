@@ -1,0 +1,39 @@
+﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Asignatura>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+
+<a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Asignaturas">Crear Asignatura</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Codigo de asignatura</th>
+            <th>Codigo de area académica </th>
+            <th>Credito</th>
+            <th>Nombre de asignatura</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.CodigoAsignatura</td>
+                <td>@item.CodigoArea</td>
+                <td>@item.Credito</td>
+                <td>@item.NombreAsignatura</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Asignaturas" asp-route-Matricula="@item.CodigoAsignatura">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Persona" asp-route-Matricula="@item.CodigoAsignatura">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
