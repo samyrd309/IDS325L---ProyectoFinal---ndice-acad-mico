@@ -1,0 +1,36 @@
+﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Asignatura>
+
+
+<h1>Index</h1>
+
+<a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Asignaturas" asp-route-idAsignatura="0">Crear Asignatura</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <th>Codigo de asignatura</th>
+            <th>Área académica</th>
+            <th>Creditos</th>
+            <th>Nombre de Asignatura</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.IdAsignatura</td>
+                <td>@item.CodigoAsignatura</td>
+                <td>@item.CodigoAreaNavigation.NombreArea</td>
+                <td>@item.Credito</td>
+                <td>@item.NombreAsignatura</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Asignaturas" asp-route-idAsignatura="@item.IdAsignatura">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Asignaturas" asp-route-idAsignatura="@item.IdAsignatura">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
