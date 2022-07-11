@@ -19,7 +19,7 @@
                 <input class="form-control form-control-sm" asp-for="oPersona.Apellido" type="text"/>
             </div>
             <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.CodigoAreaNavigation.CodigoArea">Área Academica</label>
+                <label class="form-label" asp-for="oPersona.oAreaAcademica.CodigoArea">Area Academica</label>
                 <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
                     <option selected disabled>-- Seleccionar --</option>
                 </select>
@@ -35,12 +35,12 @@
                 <input class="form-control form-control-sm" asp-for="oPersona.CorreoElectronico" type="text"/>
             </div>
             <div class="mb-2"> 
-                <label class="form-label" asp-for="oPersona.Contraseña">Contraseña</label>
+                <label class="form-label" asp-for="oPersona.Contraseña">Apellido</label>
                 <input class="form-control form-control-sm" asp-for="oPersona.Contraseña" type="password"/>
             </div>
 
             <div class="mb-2"> 
-                @if(Model.oPersona.Matricula == 0)
+             @if(Model.oPersona.Matricula == 0)
                 {
                     <button class="btn btn-primary btn-sm w-25" type="submit">Crear</button>
                 }

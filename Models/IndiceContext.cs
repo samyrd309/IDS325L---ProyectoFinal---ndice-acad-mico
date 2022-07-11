@@ -25,6 +25,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=SAMUEL309; DataBase=Indice;Integrated Security=true");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,7 +37,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<AreaAcademica>(entity =>
             {
                 entity.HasKey(e => e.CodigoArea)
-                    .HasName("PK__AreaAcad__CF230A4541265BDC");
+                    .HasName("PK__AreaAcad__CF230A450DA5B66E");
 
                 entity.ToTable("AreaAcademica");
 
@@ -57,7 +62,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Asignatura>(entity =>
             {
                 entity.HasKey(e => e.CodigoAsignatura)
-                    .HasName("PK__Asignatu__4783438FB0FC356E");
+                    .HasName("PK__Asignatu__4783438FB849913B");
 
                 entity.ToTable("Asignatura");
 
@@ -88,12 +93,53 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasForeignKey(d => d.CodigoArea)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Asignatura.CodigoArea");
+
+                entity.HasOne(d => d.CodigoCarreraNavigation)
+                    .WithMany(p => p.Asignaturas)
+                    .HasForeignKey(d => d.CodigoCarrera)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Asignatura.CodigoCarrera");
+            });
+
+            modelBuilder.Entity<Calificacion>(entity =>
+            {
+                entity.HasKey(e => new { e.Matricula, e.CodigoAsignatura })
+                    .HasName("PK__Califica__EBC1CF76A4DE84A4");
+
+                entity.ToTable("Calificacion");
+
+                entity.Property(e => e.CodigoAsignatura).HasMaxLength(7);
+
+                entity.Property(e => e.FechaIngresoCalificacion)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Nota).HasMaxLength(2);
+
+                entity.Property(e => e.Trimestre)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("([dbo].[TrimestreAct]())")
+                    .IsFixedLength();
+
+                entity.Property(e => e.VigenciaCalificacion).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.IdSeccionNavigation)
+                    .WithMany(p => p.Calificacions)
+                    .HasForeignKey(d => d.IdSeccion)
+                    .HasConstraintName("FK_Calificacion.IdSeccion");
+
+                entity.HasOne(d => d.MatriculaNavigation)
+                    .WithMany(p => p.Calificacions)
+                    .HasForeignKey(d => d.Matricula)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Calificacion.Matricula");
             });
 
             modelBuilder.Entity<Carrera>(entity =>
             {
                 entity.HasKey(e => e.CodigoCarrera)
-                    .HasName("PK__Carrera__2D5445FCC69F5018");
+                    .HasName("PK__Carrera__2D5445FC6ED29CAE");
 
                 entity.ToTable("Carrera");
 
@@ -118,7 +164,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Literal>(entity =>
             {
                 entity.HasKey(e => e.Nota)
-                    .HasName("PK__Literal__7D8C2AD01A092671");
+                    .HasName("PK__Literal__7D8C2AD0ED2FE856");
 
                 entity.ToTable("Literal");
 
@@ -130,7 +176,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Persona>(entity =>
             {
                 entity.HasKey(e => e.Matricula)
-                    .HasName("PK__Persona__0FB9FB4E6764EF4D");
+                    .HasName("PK__Persona__0FB9FB4E205C07FA");
 
                 entity.ToTable("Persona");
 
@@ -173,7 +219,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasForeignKey(d => d.Carrera)
                     .HasConstraintName("FK_Persona.Carrera");
 
-                entity.HasOne(d => d.CodigoAreaNavigation)
+                entity.HasOne(d => d.oAreaAcademina)
                     .WithMany(p => p.Personas)
                     .HasForeignKey(d => d.CodigoArea)
                     .HasConstraintName("FK_Persona.CodigoArea");
@@ -188,7 +234,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__2A49584C9006282D");
+                    .HasName("PK__Rol__2A49584C9C8B2577");
 
                 entity.ToTable("Rol");
 
@@ -201,6 +247,32 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.VigenciaRol).HasDefaultValueSql("((1))");
+            });
+
+            modelBuilder.Entity<Seccion>(entity =>
+            {
+                entity.HasKey(e => e.IdSeccion)
+                    .HasName("PK__Seccion__CD2B049FBAD09E8D");
+
+                entity.ToTable("Seccion");
+
+                entity.Property(e => e.CodigoAsignatura).HasMaxLength(7);
+
+                entity.Property(e => e.FechaIngresoSeccion)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.VigenciaSección).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.CodigoAsignaturaNavigation)
+                    .WithMany(p => p.Seccions)
+                    .HasForeignKey(d => d.CodigoAsignatura)
+                    .HasConstraintName("FK_Seccion.CodigoAsignatura");
+
+                entity.HasOne(d => d.MatriculaProfesorNavigation)
+                    .WithMany(p => p.Seccions)
+                    .HasForeignKey(d => d.MatriculaProfesor)
+                    .HasConstraintName("FK_Seccion.Matricula");
             });
 
             OnModelCreatingPartial(modelBuilder);
