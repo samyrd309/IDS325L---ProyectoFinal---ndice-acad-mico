@@ -30,7 +30,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         // GET: PersonaController/Create
         [HttpGet]
-        public ActionResult CreateEstudiantes()
+        public ActionResult CreateEstudiantes(int Matricula)
         {
             EstudianteVM oEstudianteVM = new EstudianteVM()
             {
@@ -48,6 +48,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }).ToList()
             };
 
+            if(Matricula != 0)
+            {
+                oEstudianteVM.oPersona = _indiceContext.Personas.Find(Matricula);
+            }
+
 
             return View(oEstudianteVM);
         }
@@ -58,9 +63,15 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         public ActionResult CreateEstudiantes(EstudianteVM oEstudianteVM)
         {
             oEstudianteVM.oPersona.IdRol = 2;
+            oEstudianteVM.oPersona.VigenciaPersona = true;
            if(oEstudianteVM.oPersona.Matricula == 0)
             {
                 _indiceContext.Personas.Add(oEstudianteVM.oPersona);
+            }
+            else
+            {
+                _indiceContext.Personas.Update(oEstudianteVM.oPersona);
+                
             }
 
 

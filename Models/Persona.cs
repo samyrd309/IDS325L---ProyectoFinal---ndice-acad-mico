@@ -21,11 +21,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public DateTime? FechaIngresoPersona { get; set; }
         public bool? VigenciaPersona { get; set; }
         public decimal? Indice { get; set; }
-        public string? Contraseña { get; set; }
+        public string Contraseña { get; set; } = null!;
 
         public virtual Carrera? oCarrera { get; set; }
-        public virtual AreaAcademica? oAreaAcademina { get; set; }
-        public virtual Rol oRol { get; set; }
+        public virtual AreaAcademica? oAreaAcademica { get; set; }
+        public virtual Rol oRol { get; set; } = null!;
         public virtual ICollection<Calificacion> Calificacions { get; set; }
         public virtual ICollection<Seccion> Seccions { get; set; }
     }
