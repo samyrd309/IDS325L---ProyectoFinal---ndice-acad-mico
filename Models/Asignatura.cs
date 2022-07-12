@@ -17,7 +17,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public DateTime? FechaIngresoAsignatura { get; set; }
         public bool? VigenciaAsignatura { get; set; }
 
-        public virtual AreaAcademica? CodigoAreaNavigation { get; set; }
+        public virtual AreaAcademica CodigoAreaNavigation { get; set; } = null!;
         public virtual ICollection<Seccion> Seccions { get; set; }
     }
 }
