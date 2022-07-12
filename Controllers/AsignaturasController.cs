@@ -15,13 +15,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             _indiceContext = indiceContext;
         }
 
-
-
         // GET: AsignaturasController
         public ActionResult Index()
         {
 
-            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).ToList();
+            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(m => m.VigenciaAsignatura.Equals(true)).ToList();
             return View(lista);
         }
 
@@ -67,46 +65,25 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return RedirectToAction("Index", "Asignaturas");
         }
 
-        // GET: AsignaturasController/Edit/5
-        public IActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AsignaturasController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: AsignaturasController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(int idAsignatura)
         {
-            return View();
+            Asignatura oAsignatura = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(m => m.IdAsignatura == idAsignatura).FirstOrDefault();
+            return View(oAsignatura);
         }
 
         // POST: AsignaturasController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(Asignatura oAsignatura)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            oAsignatura = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(c => c.IdAsignatura == oAsignatura.IdAsignatura).FirstOrDefault();
+            oAsignatura.VigenciaAsignatura = false;
+            _indiceContext.Update(oAsignatura);
+            _indiceContext.SaveChanges();
+
+            return RedirectToAction("Index", "Asignaturas");
         }
     }
 }
