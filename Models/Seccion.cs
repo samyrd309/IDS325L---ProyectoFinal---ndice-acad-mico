@@ -13,6 +13,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public int IdSeccion { get; set; }
         public int? Matricula { get; set; }
         public int IdAsignatura { get; set; }
+        public int? NumeroSeccion { get; set; }
         public DateTime? FechaIngresoSección { get; set; }
         public bool? VigenciaSección { get; set; }
 
