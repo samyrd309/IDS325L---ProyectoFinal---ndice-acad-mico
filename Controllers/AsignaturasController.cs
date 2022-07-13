@@ -15,11 +15,13 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             _indiceContext = indiceContext;
         }
 
+
+
         // GET: AsignaturasController
         public ActionResult Index()
         {
 
-            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(a => a.VigenciaAsignatura.Equals(true)).ToList();
+            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).ToList();
             return View(lista);
         }
 
@@ -67,6 +69,27 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
 
             return RedirectToAction("Index", "Asignaturas");
+        }
+
+        // GET: AsignaturasController/Edit/5
+        public IActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: AsignaturasController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: AsignaturasController/Delete/5

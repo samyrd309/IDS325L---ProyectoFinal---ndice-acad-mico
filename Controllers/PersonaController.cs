@@ -154,8 +154,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         {
             oPersona = _indiceContext.Personas.Include(c => c.CarreraNavigation).Include(c => c.CodigoAreaNavigation).Include(c => c.IdRolNavigation).Where(c => c.Matricula == oPersona.Matricula).FirstOrDefault();
             oPersona.VigenciaPersona = false;
-            _indiceContext.Update(oPersona);
             _indiceContext.SaveChanges();
+            _indiceContext.Update(oPersona);
             if(oPersona.IdRol == 2)
             {
                 return RedirectToAction("IndexEstudiantes", "Persona");
@@ -168,6 +168,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             
             return View(oPersona);
         }
+
     }
 }
 
