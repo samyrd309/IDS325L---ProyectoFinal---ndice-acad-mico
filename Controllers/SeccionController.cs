@@ -105,5 +105,41 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             _indiceContext.SaveChanges();
             return RedirectToAction("Index", "Seccion");
         }
+
+        public ActionResult IndexAsignarEstudiantes()
+        {
+            List<Calificacion> lista = _indiceContext.Calificacions.Include(s => s.IdAsignaturaNavigation).Include(s=> s.SeccionNavegation).Include(m=>m.MatriculaNavigation).Where(a=>a.VigenciaCalificacion.Equals(true)).ToList();
+            return View(lista);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAsignarEstudiantes()
+        {
+            AsignarEstudiantesVM oAsignarEstudiantesVM = new AsignarEstudiantesVM()
+            {
+                oCalificacion = new Calificacion(),
+                oEstudiante = _indiceContext.Personas.Where(p => p.IdRol.Equals(2)).Select(estudiante => new SelectListItem()
+                {
+                    Text = estudiante.Nombre + estudiante.Apellido,
+                    Value = estudiante.Matricula.ToString()
+                }).ToList(),
+                oSeccion = _indiceContext.Seccions.Select(seccion => new SelectListItem()
+                {
+                    Text = seccion.NumeroSeccion.ToString(),
+                    Value = seccion.IdSeccion.ToString()
+                }).ToList(),
+                oAsignatura = _indiceContext.Asignaturas.Select(asignatura => new SelectListItem()
+                {
+                    Text = asignatura.NombreAsignatura.ToString(),
+                    Value = asignatura.IdAsignatura.ToString(),
+                }).ToList()
+            };
+            return View(oAsignarEstudiantesVM);
+        }
+
+
+
+
+
     }
 }
