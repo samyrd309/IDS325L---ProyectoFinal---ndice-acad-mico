@@ -126,7 +126,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasForeignKey(d => d.Nota)
                     .HasConstraintName("FK_Calificacion.Nota");
 
-                entity.HasOne(d => d.Id)
+                entity.HasOne(d => d.SeccionNavegation)
                     .WithMany(p => p.Calificacions)
                     .HasForeignKey(d => new { d.IdSeccion, d.IdAsignatura })
                     .HasConstraintName("FK_Calificacion.IdSeccion");

@@ -13,8 +13,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public DateTime? FechaIngresoCalificacion { get; set; }
         public bool? VigenciaCalificacion { get; set; }
 
-        public virtual Seccion? Id { get; set; }
+        public virtual Seccion? SeccionNavegation { get; set; }
         public virtual Persona MatriculaNavigation { get; set; } = null!;
+        public virtual Asignatura IdAsignaturaNavigation { get; set; } = null!;
         public virtual Literal? NotaNavigation { get; set; }
     }
 }
