@@ -1,0 +1,46 @@
+﻿@using System.Data;
+@model DataSet
+@using IDS325L___ProyectoFinal___Índice_académico.Controllers
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <div class="row mb-3">
+        <div class="col-sm-3">
+            <label id="Indice">Indice General</label>
+            <input type="text" id="txtIndice" value="@ViewBag.Indice" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label id="Total">Total de Créditos</label>
+            <input type="text" id="txtTotalCreditos" value="@ViewBag.Total" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label id="Meritos">Honor Académico</label>
+            <input type="text" id="txtMerito" value="@ViewBag.Merito" readonly />
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Codigo de la asignatura</th>
+            <th>Nombre de la asignatura</th>
+            <th>Credito</th>
+            <th>Nota</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Tables[0].Rows)
+        {
+            <tr>
+                <td>@row["CodigoAsignatura"]</td>
+                <td>@row["NombreAsignatura"]</td>
+                <td>@row["Credito"]</td>
+                <td>@row["Nota"]</td>
+            </tr>
+        }
+    </tbody>
+</table>

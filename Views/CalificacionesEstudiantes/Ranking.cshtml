@@ -1,0 +1,55 @@
+﻿@model IEnumerable<IDS325L___ProyectoFinal___Índice_académico.Models.Persona>
+
+@{
+    ViewData["Title"] = "Ranking";
+}
+
+<h1>Ranking</h1>
+
+<div>
+    <div class="row mb-3">
+        <form asp-action="Ranking" asp-controller="CalificacionesEstudiantes">
+            <div class="form-group">
+                <label for="txtCarrera" class="control-label">Carrera</label>
+                <!--input name="txtCarrera" class="form-control"/-->
+                <select name="txtCarrera" class="form-select" asp-items="ViewBag.CarreraList">
+                    <option value="" selected disabled>Seleccione la Carrera</option>
+                </select>
+            </div>
+            <div>
+                <button class="btn-primary">Buscar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Matricula
+            </th>
+            <th>
+                Carrera
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Indice)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Indice)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
