@@ -1,5 +1,9 @@
 ﻿@model IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels.AsignaturaVM
 
+@{
+    ViewData["Title"] = "Create";
+}
+
 @if(Model.oAsignatura.IdAsignatura == 0)
 {
     <h1>Crear Asignatura</h1>
@@ -8,35 +12,36 @@ else{
     <h1>Editar Asignatura</h1>
 }
 
+
 <div class="row">
     <div class="col-sm-4">
         <form asp-action="Create" asp-controller="Asignaturas" method="post">
             <input type="hidden" asp-for="oAsignatura.IdAsignatura"/>
 
 
-            <div class="mb-2">
+            <div class="mb-2"> 
                 <label class="form-label" asp-for="oAsignatura.CodigoAsignatura">Código de Asignatura</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.CodigoAsignatura"  />
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2"> 
                 <label class="form-label" asp-for="oAsignatura.CodigoArea">Código de Asignatura</label>
                 <select class="form-select form-select-sm" asp-for="oAsignatura.CodigoArea" asp-items="@Model.oListaAreaAcademica">
                     <option selected disabled> --Seleccionar--</option>
                 </select>
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2"> 
                 <label class="form-label" asp-for="oAsignatura.Credito">Cantidad de créditos</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.Credito"  />
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2"> 
                 <label class="form-label" asp-for="oAsignatura.NombreAsignatura">Nombre asignatura</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.NombreAsignatura" />
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2"> 
                 @if(Model.oAsignatura.IdAsignatura == 0)
                 {
                     <button class="btn btn-primary btn-sm w-25">Crear</button>
@@ -47,8 +52,15 @@ else{
                 }
 
                 <a class="btn btn-success" asp-action="Index" asp-controller="Asignaturas">Volver</a>
-            </div>
+             </div>
 
+            
         </form>
-    </div>  
+    </div>
 </div>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

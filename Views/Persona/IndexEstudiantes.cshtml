@@ -1,7 +1,20 @@
 ﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Persona>
 
+<div class="row">
+    <div class="col-6">
+        <form asp-action="IndexEstudiantes" asp-controller="Persona" method="post">
+            <div class="input-group mb-3">
+            
+                <input type="text" class="form-control">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+             </div>
+         </form>
+    </div>
+    <div class="col-6">
+        <a class="btn btn-success btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona">Crear Estudiante</a>
+    </div>
+</div>
 
-<a class="btn btn-success btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona">Crear Estudiante</a>
 
 <table class="table">
     <thead>

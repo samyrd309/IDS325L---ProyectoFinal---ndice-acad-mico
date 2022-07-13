@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IDS325L___ProyectoFinal___Índice_académico.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IDS325L___ProyectoFinal___Índice_académico.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using IDS325L___ProyectoFinal___Índice_académico.Models;
 using IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels;
+
+
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
     public class AsignaturasController : Controller
@@ -40,7 +44,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             if(idAsignatura != 0)
             {
                 oAsignaturaVM.oAsignatura = _indiceContext.Asignaturas.Find(idAsignatura);
-            }
+        }
 
             return View(oAsignaturaVM);
         }
@@ -56,22 +60,22 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 _indiceContext.Asignaturas.Add(oAsignaturaVM.oAsignatura);
             }
             else
-            {
+                {
                 _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
-            }
+                }
 
             _indiceContext.SaveChanges();
 
             return RedirectToAction("Index", "Asignaturas");
-        }
+            }
 
         // GET: AsignaturasController/Delete/5
         [HttpGet]
         public ActionResult Delete(int idAsignatura)
-        {
+            {
             Asignatura oAsignatura = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(m => m.IdAsignatura == idAsignatura).FirstOrDefault();
             return View(oAsignatura);
-        }
+            }
 
         // POST: AsignaturasController/Delete/5
         [HttpPost]
@@ -81,9 +85,14 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             oAsignatura = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(c => c.IdAsignatura == oAsignatura.IdAsignatura).FirstOrDefault();
             oAsignatura.VigenciaAsignatura = false;
             _indiceContext.Update(oAsignatura);
-            _indiceContext.SaveChanges();
+                _indiceContext.SaveChanges();
 
-            return RedirectToAction("Index", "Asignaturas");
+                return RedirectToAction("Index", "Asignaturas");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

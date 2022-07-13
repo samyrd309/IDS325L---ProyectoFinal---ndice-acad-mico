@@ -5,12 +5,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
 {
     public partial class Persona
     {
-        public Persona()
-        {
-            Calificacions = new HashSet<Calificacion>();
-            Seccions = new HashSet<Seccion>();
-        }
-
         public int Matricula { get; set; }
         public int IdRol { get; set; }
         public string? Carrera { get; set; }
