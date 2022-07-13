@@ -39,7 +39,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<AreaAcademica>(entity =>
             {
                 entity.HasKey(e => e.CodigoArea)
-                    .HasName("PK__AreaAcad__CF230A45AFA5F411");
+                    .HasName("PK__AreaAcad__CF230A45247BC933");
 
                 entity.ToTable("AreaAcademica");
 
@@ -62,7 +62,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Asignatura>(entity =>
             {
                 entity.HasKey(e => e.IdAsignatura)
-                    .HasName("PK__Asignatu__94F174B89C368849");
+                    .HasName("PK__Asignatu__94F174B8FBCA9DA0");
 
                 entity.ToTable("Asignatura");
 
@@ -95,7 +95,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Calificacion>(entity =>
             {
                 entity.HasKey(e => new { e.Matricula, e.IdAsignatura, e.Trimestre })
-                    .HasName("PK__Califica__BE7CAC89567CDEF8");
+                    .HasName("PK__Califica__BE7CAC891E7ED0DE");
 
                 entity.ToTable("Calificacion");
 
@@ -133,7 +133,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Carrera>(entity =>
             {
                 entity.HasKey(e => e.CodigoCarrera)
-                    .HasName("PK__Carrera__2D5445FC1B93A560");
+                    .HasName("PK__Carrera__2D5445FC5A4F69CF");
 
                 entity.ToTable("Carrera");
 
@@ -156,7 +156,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Literal>(entity =>
             {
                 entity.HasKey(e => e.Nota)
-                    .HasName("PK__Literal__7D8C2AD0B01C55F7");
+                    .HasName("PK__Literal__7D8C2AD021925E71");
 
                 entity.ToTable("Literal");
 
@@ -168,7 +168,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Persona>(entity =>
             {
                 entity.HasKey(e => e.Matricula)
-                    .HasName("PK__Persona__0FB9FB4EDDA31003");
+                    .HasName("PK__Persona__0FB9FB4EA0E0A7D6");
 
                 entity.ToTable("Persona");
 
@@ -225,7 +225,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__2A49584C2D96C842");
+                    .HasName("PK__Rol__2A49584C7BE9844B");
 
                 entity.ToTable("Rol");
 
@@ -243,12 +243,13 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Seccion>(entity =>
             {
                 entity.HasKey(e => new { e.IdSeccion, e.IdAsignatura })
-                    .HasName("PK__Seccion__546413D451BC7BAB");
+                    .HasName("PK__Seccion__546413D438C3CC5B");
 
                 entity.ToTable("Seccion");
 
-                entity.Property(e => e.IdSeccion).ValueGeneratedOnAdd();
-
+                entity.Property(e => e.FechaIngresoSección)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.VigenciaSección).HasDefaultValueSql("((1))");
 

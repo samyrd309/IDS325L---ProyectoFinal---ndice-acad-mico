@@ -19,7 +19,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         public ActionResult Index()
         {
 
-            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(a => a.VigenciaAsignatura.Equals(true)).ToList();
+            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(m => m.VigenciaAsignatura.Equals(true)).ToList();
             return View(lista);
         }
 
@@ -54,17 +54,13 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             if(oAsignaturaVM.oAsignatura.IdAsignatura == 0)
             {
                 _indiceContext.Asignaturas.Add(oAsignaturaVM.oAsignatura);
-                
             }
             else
             {
                 _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
-                
             }
 
             _indiceContext.SaveChanges();
-
-
 
             return RedirectToAction("Index", "Asignaturas");
         }
