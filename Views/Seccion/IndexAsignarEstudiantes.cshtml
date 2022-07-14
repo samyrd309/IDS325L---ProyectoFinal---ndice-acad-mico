@@ -1,34 +1,10 @@
-﻿@model IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels.AsignarEstudiantesVM
+﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Calificacion>
 @{
-    ViewData["Title"] = "CreateAsignarEstudiantes";
+    ViewData["Title"] = "IndexAsignarEstudiantes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreateAsignarEstudiantes</h1>
-
-
-
-<div class="row">
-    <div class="col-sm-4">
-        <form asp-controller="Seccion" asp-route-IdSeccion="IdSeccion" asp-route-IdAsignatura="IdAsignatura" asp-action="CreateAsignarEstudiantes" method="post">
-            <input type="hidden" asp-for="oCalificacion.IdCalificacion"/>
-            <div class="mb-2">
-                <label>Matricula del estudiante</label>
-                <input name="Matricula" asp-for="oCalificacion.Matricula"/>
-            </div>
-            <div class="mb-2">
-                 <input type="hidden" name="IdAsignatura" asp-for="oCalificacion.Id.IdAsignatura"/>
-            </div>
-            
-            <div class="mb-2">
-                <input type="hidden" name="IdSeccion" asp-for="oCalificacion.Id.IdSeccion"/>
-            </div>
-            <div class="mb-2">
-                <button class="btn btn-primary" type="submit">Create</button>
-            </div>
-        </form>
-    </div>
-</div>
+<h1>IndexAsignarEstudiantes</h1>
 
 
 
@@ -42,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in ViewBag.oListaCalificaciones)
+        @foreach (var item in Model)
         {
             <tr>
                 @if(item.MatriculaNavigation != null)

@@ -131,7 +131,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 oListaCalificaciones = _indiceContext.Calificacions.Include(s => s.IdAsignaturaNavigation).Include(s => s.Id).Include(m => m.MatriculaNavigation).Where(a => a.VigenciaCalificacion.Equals(true)&& a.Id.IdSeccion.Equals(IdSeccion)).ToList()
 
             };
-            
+
+
+            ViewBag.oListaCalificaciones = _indiceContext.Calificacions.Include(s => s.IdAsignaturaNavigation).Include(s => s.Id).Include(m => m.MatriculaNavigation).ToList();
             oAsignarEstudiantesVM.oCalificacion.Id = _indiceContext.Seccions.Find(IdSeccion, IdAsignatura);
             
 
@@ -151,7 +153,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             }
             _indiceContext.SaveChanges();
 
-            return RedirectToAction("CreateAsignarEstudiantes", "Seccion");
+            return View();
         }
 
 

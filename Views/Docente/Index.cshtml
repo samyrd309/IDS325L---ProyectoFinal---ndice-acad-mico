@@ -1,0 +1,43 @@
+﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Seccion>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Secciones docentes</h1>
+
+
+<a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Seccion" asp-route-IdSeccion="0">Crear secciones </a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Nombre docente</td>
+            <td>Nombre asignatura</td>
+            <td>Número sección</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>@item.IdSeccion</td>
+                @if(item.MatriculaNavigation == null)
+                {
+                    <td>@item.Matricula</td>
+                }
+                else
+                {
+                    <td>@item.Matricula - @item.MatriculaNavigation.Nombre @item.MatriculaNavigation.Apellido</td>
+                }
+                <td>@item.IdAsignaturaNavigation.CodigoAsignatura @item.IdAsignaturaNavigation.NombreAsignatura</td>
+                <td>@item.NumeroSeccion</td>
+                <td>
+                   
+                    <a class="btn btn-danger btn-sm" asp-action="EditarCalificacion" asp-controller="Docente" asp-route-IdSeccion="@item.IdSeccion" asp-route-IdAsignatura="@item.IdAsignatura" asp-route-Matricula="@item.Matricula">Asignar estudiantes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
