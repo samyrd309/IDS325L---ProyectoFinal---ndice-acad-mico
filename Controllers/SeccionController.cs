@@ -160,8 +160,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public JsonResult GetEstudiante(int IdSeccion, int IdAsignatura)
         {
-            // IdSeccion = 1;
-            // IdAsignatura = 1;
 
             int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
 
