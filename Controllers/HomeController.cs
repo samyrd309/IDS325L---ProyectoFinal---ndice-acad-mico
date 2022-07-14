@@ -73,5 +73,36 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+
+        public ActionResult CambiarContraseña()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CambiarContraseña(int Matricula, string Email, string Contraseña, string Confirmacion)
+        {
+            var usuario = _indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.CorreoElectronico == Email);
+
+            if (usuario == null)
+            {
+                ViewBag.Message = string.Format("El usuario no existe en el sistema");
+                return View(); // Error de campos vacíos
+            }
+
+            if (Contraseña != Confirmacion)
+            {
+                ViewBag.Message = string.Format("La contraseña es diferente a la confirmación");
+                return View();  // Vista o mensaje de error
+            }// Manejar mecanismo de validación de nueva contraseña
+
+
+            usuario.Contraseña = Contraseña;
+            _indiceContext.Personas.Update(usuario);
+            _indiceContext.SaveChanges();
+
+            return View("Login");
+        }
+
     }
 }

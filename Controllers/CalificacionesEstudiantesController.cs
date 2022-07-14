@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Linq;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
@@ -44,29 +45,70 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }
             }
 
-
-            DataSet ds = new DataSet();
-            using (SqlConnection conn = new SqlConnection(_config.GetConnectionString("cadenaSQL")))
-            {
-                string query = $"EXEC MostrarCalificaciones '{Matricula}'";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    using (SqlDataAdapter adapter = new SqlDataAdapter())
-                    {
-                        adapter.SelectCommand = cmd;
-                        adapter.Fill(ds);
-                    }
-                }
-            }
-
-            return View(ds);
+            return View();
+           
         }
 
-        public IActionResult Ranking(string txtCarrera)
+
+        public JsonResult ListaCalificaciones(int Matricula)
         {
-            //txtCarrera = "IDS";
-            ViewBag.CarreraList = _indiceContext.Carreras.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
-            return View(_indiceContext.Personas.Where(p => p.VigenciaPersona == true && p.IdRol == 2 && p.Carrera == txtCarrera).OrderBy(p => p.Indice).ToList());
+            Matricula = 2;
+            
+            int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
+
+            int CantidadRegistros = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "0");
+
+            int OmitirRegistros = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
+
+            string ValorBuscado = Request.Form["search[value]"].FirstOrDefault() ?? "";
+
+            var query = from Calificacion in _indiceContext.Set<Calificacion>()
+                        join Asignatura in _indiceContext.Set<Asignatura>()
+                            on new { Calificacion.IdAsignatura, Calificacion.Matricula } equals new { Asignatura.IdAsignatura, Matricula }
+                        select new { Asignatura.CodigoAsignatura, Asignatura.NombreAsignatura, Asignatura.Credito, Calificacion.Trimestre ,Calificacion.Nota };
+
+            int count = query.Count();
+
+            query = query.Where(e => e.NombreAsignatura.Contains(ValorBuscado));
+
+            int filterquery = query.Count();
+
+            var lista = query.Skip(OmitirRegistros).Take(CantidadRegistros).ToList();
+
+            return Json(new
+            {
+                draw = NroPeticion,
+                recordsTotal = count,
+                recordsFiltered = filterquery,
+                data = lista
+            });
+        }
+
+        public JsonResult ListaEstudiantes()
+        {
+            int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
+
+            int CantidadRegistros = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "0");
+
+            int OmitirRegistros = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
+
+            string ValorBuscado = Request.Form["search[value]"].FirstOrDefault() ?? "";
+
+            IQueryable<Persona> query = _indiceContext.Personas.Where(x => x.VigenciaPersona == true && x.IdRol == 2);
+
+            int count = query.Count();
+
+            query = query.Where(e => e.Carrera.Contains(ValorBuscado));
+
+            int filterquery = query.Count();
+
+            var lista = query.Skip(OmitirRegistros).Take(CantidadRegistros).ToList();
+
+            return Json( new { 
+                draw = NroPeticion,
+                recordsTotal = count,
+                recordsFiltered = filterquery,
+                data = lista} );
         }
 
     }

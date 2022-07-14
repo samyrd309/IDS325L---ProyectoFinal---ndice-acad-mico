@@ -1,0 +1,44 @@
+﻿@model IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels.EstudianteVM
+@{
+    ViewData["Title"] = "CambiarContraseña";
+}
+
+<h1>Cambiar Contraseña</h1>
+
+@if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+
+<div class="">
+    <div class="col-sm-4">
+        <form asp-action="CambiarContraseña" asp-controller="Home" method="post">
+            <div class="mb-2"> 
+                <label class="form-label" for="Matricula">Matrícula</label>
+                <input class="form-control form-control-sm" name="Matricula" type="text"/>
+            </div>
+            <div class="mb-2"> 
+                <label class="form-label" for="Email">Correo electronico</label>
+                <input class="form-control form-control-sm" name="Email" type="text"/>
+            </div>
+            <div class="mb-2"> 
+                <label class="form-label" for="Contraseña">Contraseña</label>
+                <input class="form-control form-control-sm" name="Contraseña" type="password"/>
+            </div>
+            <div class="mb-2"> 
+                <label class="form-label" for="Confirmacion">Confirmación Contraseña</label>
+                <input class="form-control form-control-sm" name="Confirmacion" type="password"/>
+            </div>            
+            <div class="mb-2"> 
+                    <button class="btn btn-primary btn-sm w-25" type="submit">Cambiar Contraseña</button>
+                <a class="btn btn-dark btn-sm" asp-action="Login" asp-controller="Home">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
