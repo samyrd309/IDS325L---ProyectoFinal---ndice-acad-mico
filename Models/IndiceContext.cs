@@ -96,7 +96,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
 
             modelBuilder.Entity<Calificacion>(entity =>
             {
-                entity.HasKey(e => new { e.Matricula, e.IdAsignatura, e.Trimestre, e.IdCalificacion })
+                entity.HasKey(e => new { e.Matricula, e.IdAsignatura, e.Trimestre })
                     .HasName("PK__Califica__CB78A2C3431F9BA4");
 
                 entity.ToTable("Calificacion");

@@ -25,86 +25,107 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         }
 
         // GET: CalificacionController/Create
-        public ActionResult Create()
+        public ActionResult Create(int Matricula, int IdAsignatura, string Trimestre)
         {
-            try
+
+            if (Matricula == null || _indiceContext.Calificacions == null)
             {
-                RevisionVM oSeccionVM = new RevisionVM()
-                {
-                    oCalificacion = new Calificacion(),
-
-                };
-
-                return View(oSeccionVM);
+                return NotFound();
             }
-            catch (Exception ex)
+
+            var calificacion = _indiceContext.Calificacions.Find(Matricula, IdAsignatura, Trimestre);
+            if (calificacion == null)
             {
-                return View(ex);
+                return NotFound();
             }
+
+            return View(calificacion);
         }
-        private string conversion(int Nota)
-        {
-            string literal;
-
-            if (Nota > 89)
-                literal = "A";
-            else if (Nota > 84)
-                literal = "B+";
-            else if (Nota > 79)
-                literal = "B";
-            else if (Nota > 74)
-                literal = "C+";
-            else if (Nota > 69)
-                literal = "C";
-            else if (Nota > 59)
-                literal = "D";
-            else if (Nota > 1)
-                literal = "F";
-            else
-                literal = "R";
-
-            return literal;
-        }
-
 
         // POST: CalificacionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RevisionVM oRevisionVM)
+        public ActionResult Create(int Matricula, int IdAsignatura, string Trimestre, Calificacion calificacion)
         {
+            if (Matricula != calificacion.Matricula || IdAsignatura != calificacion.IdAsignatura || calificacion.Trimestre != Trimestre)
+            {
+                return NotFound();
+            }
+
             try
             {
-                if(oRevisionVM.oCalificacion.IdCalificacion != 0)
-                {
-                    oRevisionVM.oCalificacion = new Calificacion(); 
-                }
-                return RedirectToAction(nameof(Index));
+                calificacion.VigenciaCalificacion = true;
+                _indiceContext.Update(calificacion);
+                _indiceContext.SaveChanges();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!CalificacionExists(Matricula, IdAsignatura, Trimestre))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return RedirectToAction("Index", "Calificacion");
         }
 
-        // GET: CalificacionController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult IndexEstudiantes()
         {
-            return View();
+            List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.Nota != null).ToList();
+            return View(lista);
+        }
+
+
+        // GET: CalificacionController/Edit/5
+        public ActionResult Publicar(int Matricula, int IdAsignatura, string Trimestre)
+        {
+            if (Matricula == null || _indiceContext.Calificacions == null)
+            {
+                return NotFound();
+            }
+
+            var calificacion = _indiceContext.Calificacions.Find(Matricula, IdAsignatura, Trimestre);
+            if (calificacion == null)
+            {
+                return NotFound();
+            }
+
+            return View(calificacion);
         }
 
         // POST: CalificacionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Publicar(int Matricula, int IdAsignatura, string Trimestre, Calificacion calificacion)
         {
+            if (Matricula != calificacion.Matricula || IdAsignatura != calificacion.IdAsignatura || calificacion.Trimestre != Trimestre)
+            {
+                return NotFound();
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                calificacion.VigenciaCalificacion = true;
+                _indiceContext.Update(calificacion);
+                _indiceContext.SaveChanges();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!CalificacionExists(Matricula, IdAsignatura, Trimestre))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return RedirectToAction("Index", "Calificacion");
         }
 
         // GET: CalificacionController/Delete/5
@@ -128,28 +149,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             }
         }
 
-        private string conversion(int Nota)
+        private bool CalificacionExists(int Matricula, int IdAsignatura, string Trimestre)
         {
-            string literal;
-
-            if (Nota > 89)
-                literal = "A";
-            else if (Nota > 84)
-                literal = "B+";
-            else if (Nota > 79)
-                literal = "B";
-            else if (Nota > 74)
-                literal = "C+";
-            else if (Nota > 69)
-                literal = "C";
-            else if (Nota > 59)
-                literal = "D";
-            else if (Nota > 1)
-                literal = "F";
-            else
-                literal = "R";
-
-            return literal;
+            return (_indiceContext.Calificacions?.Any(e => e.Matricula == Matricula && e.IdAsignatura == IdAsignatura && e.Trimestre == Trimestre)).GetValueOrDefault();
         }
 
     }
