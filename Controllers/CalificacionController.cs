@@ -79,5 +79,30 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 return View();
             }
         }
+
+        private string conversion(int Nota)
+        {
+            string literal;
+
+            if (Nota > 89)
+                literal = "A";
+            else if (Nota > 84)
+                literal = "B+";
+            else if (Nota > 79)
+                literal = "B";
+            else if (Nota > 74)
+                literal = "C+";
+            else if (Nota > 69)
+                literal = "C";
+            else if (Nota > 59)
+                literal = "D";
+            else if (Nota > 1)
+                literal = "F";
+            else
+                literal = "R";
+
+            return literal;
+        }
+
     }
 }
