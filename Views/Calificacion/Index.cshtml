@@ -1,0 +1,40 @@
+﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Calificacion>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Revision</h1>
+
+
+<table class="table">
+    <thead>
+        <th>Nomobre del estudiante</th>
+        <th>Nombre de la asignatura</th>
+        <th>Calificación</th>
+        <th>Trimestre</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MatriculaNavigation.Nombre @item.MatriculaNavigation.Apellido</td>
+                <td>@item.IdAsignaturaNavigation.CodigoAsignatura - @item.IdAsignaturaNavigation.NombreAsignatura</td>
+                @if(@item.Nota != null)
+                {
+                    <td>@item.Nota</td>
+                }
+                else
+                {
+                    <td>N/A</td>
+                }
+                <td>@item.Trimestre</td>
+                <td>
+                    <a class="btn btn-success btn-sm"  asp-action="Create" asp-controller="Calificacion" >Revisión</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

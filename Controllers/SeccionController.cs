@@ -151,6 +151,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 oAsignarEstudiantesVM.oCalificacion.IdSeccion = IdSeccion;
                 _indiceContext.Calificacions.Add(oAsignarEstudiantesVM.oCalificacion);
             }
+            else
+            {
+
+            }
             _indiceContext.SaveChanges();
 
             return RedirectToAction("CreateAsignarEstudiantes", "Seccion", new { IdSeccion, IdAsignatura });
