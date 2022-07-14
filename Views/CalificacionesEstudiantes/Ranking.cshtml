@@ -6,7 +6,7 @@
 
 <h1>Ranking</h1>
 
-<div>
+@*<div>
     <div class="row mb-3">
         <form asp-action="Ranking" asp-controller="CalificacionesEstudiantes">
             <div class="form-group">
@@ -21,35 +21,57 @@
             </div>
         </form>
     </div>
+</div>*@
+
+<div class="row">
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Matricula
+                </th>
+                <th>
+                    Carrera
+                </th>
+                <th>
+                    Indice
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Matricula
-            </th>
-            <th>
-                Carrera
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Indice)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Matricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Carrera)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Indice)
-            </td>
-        </tr>
+
+@section Scripts{
+    <link rel=" stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
+
+    <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "processing" : true,
+                "serverSide" : true,
+                "ajax": {
+                    "url": "@Url.Action("ListaEstudiantes", "CalificacionesEstudiantes")",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {"data" : "matricula"},
+                    {"data" : "carrera"},
+                    {"data" : "indice"}
+                ]
+            });
+        });
+
+    </script>
+
 }
-    </tbody>
-</table>

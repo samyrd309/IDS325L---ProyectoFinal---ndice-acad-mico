@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - IDS325L___ProyectoFinal___Índice_académico</title>
+    <title>@ViewData["Title"] - Cálculo de Índice</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/IDS325L___ProyectoFinal___Índice_académico.styles.css" asp-append-version="true" />
 </head>
+@using IDS325L___ProyectoFinal___Índice_académico.Controllers
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -19,17 +20,51 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> 
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Persona" asp-action="IndexEstudiantes">Estudiantes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Persona" asp-action="IndexDocentes">Docentes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Asignaturas" asp-action="Index">Asignaturas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Seccion" asp-action="Index">Secciones</a>
+                       
+                        @if (User.IsInRole("1"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Persona" asp-action="IndexEstudiantes">Estudiante</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Persona" asp-action="IndexDocentes">Docente</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Asignaturas" asp-action="Index">Asignatura</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Seccion" asp-action="Index">Secciones</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Revisión</a>
+                            </li>
+                        }
+
+
+                        @if (User.IsInRole("2"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CalificacionesEstudiantes" asp-action="Index" asp-route-Matricula="@HomeController.usuario.Matricula">Calificaciones</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CalificacionesEstudiantes" asp-action="Ranking" asp-route-Matricula="@HomeController.usuario.Matricula">Ranking</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("3"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index" asp-route-Matricula="@HomeController.usuario.Matricula">Calificaciones</a>
+                            </li>
+                        }
+
+                        <li class="nav-item d-flex">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Salir</a>
                         </li>
                     </ul>
                 </div>
