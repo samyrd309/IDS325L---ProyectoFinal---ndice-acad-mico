@@ -112,6 +112,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return PartialView("IndexAsignarEstudiantes", lista);
         }
 
+
         [HttpGet]
         public ActionResult CreateAsignarEstudiantes(int IdSeccion, int IdAsignatura)
         {
@@ -132,16 +133,15 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
             };
 
-
-            ViewBag.oListaCalificaciones = _indiceContext.Calificacions.Include(s => s.IdAsignaturaNavigation).Include(s => s.Id).Include(m => m.MatriculaNavigation).ToList();
             oAsignarEstudiantesVM.oCalificacion.Id = _indiceContext.Seccions.Find(IdSeccion, IdAsignatura);
-            
+            ViewBag.seccion = IdSeccion;
+            ViewBag.asignatura = IdAsignatura;
 
             return View(oAsignarEstudiantesVM);
         }
 
         [HttpPost]
-        public ActionResult CreateAsignarEstudiantes(AsignarEstudiantesVM oAsignarEstudiantesVM , int Matricula, int IdAsignatura, int IdSeccion)
+        public ActionResult insert(AsignarEstudiantesVM oAsignarEstudiantesVM , int Matricula, int IdAsignatura, int IdSeccion)
         {
            
             if (oAsignarEstudiantesVM.oCalificacion.IdCalificacion == 0)
@@ -153,12 +153,42 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             }
             _indiceContext.SaveChanges();
 
-            return View();
+            return RedirectToAction("CreateAsignarEstudiantes", "Seccion", new { IdSeccion, IdAsignatura });
         }
 
 
 
+        public JsonResult GetEstudiante(int IdSeccion, int IdAsignatura)
+        {
+            // IdSeccion = 1;
+            // IdAsignatura = 1;
 
+            int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
+
+            int CantidadRegistros = Convert.ToInt32(Request.Form["length"].FirstOrDefault() ?? "0");
+
+            int OmitirRegistros = Convert.ToInt32(Request.Form["start"].FirstOrDefault() ?? "0");
+
+            string ValorBuscado = Request.Form["search[value]"].FirstOrDefault() ?? "";
+
+            IQueryable<Calificacion> query = _indiceContext.Calificacions.Where(c => c.IdAsignatura == IdAsignatura && c.IdSeccion == IdSeccion);
+
+            int count = query.Count();
+
+            query = query.Where(e => e.Matricula.ToString().Contains(ValorBuscado));
+
+            int filterquery = query.Count();
+
+            var lista = query.Skip(OmitirRegistros).Take(CantidadRegistros).ToList();
+
+            return Json(new
+            {
+                draw = NroPeticion,
+                recordsTotal = count,
+                recordsFiltered = filterquery,
+                data = lista
+            });
+        }
 
 
 

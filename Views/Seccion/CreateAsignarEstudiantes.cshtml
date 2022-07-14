@@ -10,70 +10,74 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <form asp-controller="Seccion" asp-route-IdSeccion="IdSeccion" asp-route-IdAsignatura="IdAsignatura" asp-action="CreateAsignarEstudiantes" method="post">
+        <form asp-controller="Seccion" asp-action="insert" method="post">
             <input type="hidden" asp-for="oCalificacion.IdCalificacion"/>
             <div class="mb-2">
                 <label>Matricula del estudiante</label>
                 <input name="Matricula" asp-for="oCalificacion.Matricula"/>
             </div>
             <div class="mb-2">
-                 <input type="hidden" name="IdAsignatura" asp-for="oCalificacion.Id.IdAsignatura"/>
+                 <input type="hidden" name="IdAsignatura" asp-for="oCalificacion.Id.IdAsignatura"  id="asg"/>
             </div>
             
             <div class="mb-2">
-                <input type="hidden" name="IdSeccion" asp-for="oCalificacion.Id.IdSeccion"/>
+                <input type="hidden" name="IdSeccion" asp-for="oCalificacion.Id.IdSeccion" id="sec"/>
             </div>
             <div class="mb-2">
                 <button class="btn btn-primary" type="submit">Create</button>
+                <a class="btn btn-dark btn-sm" asp-action="Index" asp-controller="Seccion">Volver  </a>
             </div>
         </form>
     </div>
 </div>
 
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Estudiante</th>
-            <th>Asignatura</th>
-            <th>Seccion</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ViewBag.oListaCalificaciones)
-        {
+<div class="row">
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
             <tr>
-                @if(item.MatriculaNavigation != null)
-                {
-                    <td>@item.MatriculaNavigation.Matricula - @item.MatriculaNavigation.Nombre @item.MatriculaNavigation.Apellido</td>
-                }
-                else
-                {
-                    <td>@item.Matricula</td>
-                }
-               
-                @if (item.IdAsignaturaNavigation != null)
-                {
-                    <td>@item.IdAsignaturaNavigation.CodigoAsignatura - @item.IdAsignaturaNavigation.NombreAsignatura</td>
-                }
-                else
-                {
-                    <td></td>
-                }
-                 @if (item.Id != null)
-                {
-                    <td>@item.Id.NumeroSeccion</td>
-                }
-                else
-                {
-                    <td></td>
-                }
-                <td>
-                    <a class="btn"></a>
-                </td>
+                <th>Matricula</th>
+                <th>Asignatura</th>
+                <th>Seccion</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <link rel=" stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
+
+    <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+    <script>
+
+        var seccion = $('#sec').val();
+        var asignatura = $('#asg').val();
+                
+        $(document).ready(function () {
+
+
+            $('#example').DataTable({
+                "processing" : true,
+                "serverSide" : true,
+                "ajax": {
+                    "url": "@Html.Raw(@Url.Action("GetEstudiante", "Seccion", new{ @IdSeccion = @ViewBag.seccion, @IdAsignatura = @ViewBag.asignatura }))",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {"data" : "matricula"},
+                    {"data" : "idAsignatura"},
+                    {"data" : "idSeccion"}
+                ]
+            });
+        });
+
+    </script>
+
+}
