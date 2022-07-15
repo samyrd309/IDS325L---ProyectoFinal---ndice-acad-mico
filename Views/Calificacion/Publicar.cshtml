@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Cambio de Calificación</h1>
+<h1>Publicar Calificación</h1>
 
 <form asp-controller="Calificacion" asp-action="Create" method="post">
     <input type="hidden" asp-for="IdCalificacion"/>
@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <div class="col mb-2">
             <button class="btn btn-primary" type="submit">Guardar</button>
-            <a class="btn btn-dark btn-sm" asp-action="Index" asp-controller="Calificacion">Volver</a>
+            <a class="btn btn-dark btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion">Volver</a>
         </div>
     </div>
 </form>

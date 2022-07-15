@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Revision</h1>
+<h1>Publicación</h1>
 
 
 <table class="table">
@@ -21,19 +21,23 @@
             <tr>
                 <td>@item.MatriculaNavigation.Nombre @item.MatriculaNavigation.Apellido</td>
                 <td>@item.IdAsignaturaNavigation.CodigoAsignatura - @item.IdAsignaturaNavigation.NombreAsignatura</td>
-                @if(@item.Nota != null)
-                {
-                    <td>@item.Nota</td>
-                }
-                else
-                {
-                    <td>N/A</td>
-                }
                 <td>
                     @item.IdSeccion
                 </td>
                 <td>
-                    <a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Calificacion" asp-route-Trimestre="@item.Trimestre" asp-route-IdAsignatura="@item.IdAsignatura"  asp-route-Matricula="@item.Matricula" >Revisión</a>
+                    @item.Nota
+                </td>
+                @if(@item.Nota == null)
+                {
+                    <td>
+                        <a class="btn btn-success btn-sm" asp-action="Publicar" asp-controller="Calificacion" asp-route-Trimestre="@item.Trimestre" asp-route-IdAsignatura="@item.IdAsignatura"  asp-route-Matricula="@item.Matricula" >Publicar</a>
+                    </td>
+                }
+                else
+                {
+                    <td>Publicado</td>
+                }
+                <td>
                 </td>
             </tr>
         }

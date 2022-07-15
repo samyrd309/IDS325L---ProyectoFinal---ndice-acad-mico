@@ -73,9 +73,12 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return RedirectToAction("Index", "Calificacion");
         }
 
-        public ActionResult IndexEstudiantes()
+        public ActionResult IndexPublicar(int IdSeccion, int IdAsignatura, string Trimestre)
         {
-            List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.Nota != null).ToList();
+            //IdSeccion = 4;
+            //IdAsignatura = 2;
+            // Trimestre = "2022-2";
+            List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.IdSeccion == IdSeccion && c.IdAsignatura == IdAsignatura && c.Trimestre == Trimestre).ToList();
             return View(lista);
         }
 
@@ -125,28 +128,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Calificacion");
-        }
-
-        // GET: CalificacionController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CalificacionController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("IndexPublicar", "Calificacion");
         }
 
         private bool CalificacionExists(int Matricula, int IdAsignatura, string Trimestre)
