@@ -24,6 +24,14 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return View(lista);
         }
 
+        public ActionResult IndexAsignaturasDocente(int Matricula)
+        {
+
+            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).ToList();
+            return View(lista);
+        }
+
+
         // GET: CalificacionController/Create
         public ActionResult Create(int Matricula, int IdAsignatura, string Trimestre)
         {

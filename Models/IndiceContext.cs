@@ -30,7 +30,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-91438D4;Initial Catalog=IndiceBD;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Server=SAMUEL309; DataBase=Indice;Integrated Security=true");
             }
         }
 
@@ -39,7 +39,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<AreaAcademica>(entity =>
             {
                 entity.HasKey(e => e.CodigoArea)
-                    .HasName("PK__AreaAcad__CF230A4588D28679");
+                    .HasName("PK__AreaAcad__CF230A454CBBB83D");
 
                 entity.ToTable("AreaAcademica");
 
@@ -62,7 +62,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Asignatura>(entity =>
             {
                 entity.HasKey(e => e.IdAsignatura)
-                    .HasName("PK__Asignatu__94F174B8D50B9D96");
+                    .HasName("PK__Asignatu__94F174B84ADF1548");
 
                 entity.ToTable("Asignatura");
 
@@ -97,7 +97,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Calificacion>(entity =>
             {
                 entity.HasKey(e => new { e.Matricula, e.IdAsignatura, e.Trimestre })
-                    .HasName("PK__Califica__CB78A2C3431F9BA4");
+                    .HasName("PK__Califica__BE7CAC893D7A056F");
 
                 entity.ToTable("Calificacion");
 
@@ -107,8 +107,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .HasDefaultValueSql("([dbo].[TrimestreAct]())")
                     .IsFixedLength();
 
-                entity.Property(e => e.IdCalificacion).HasDefaultValueSql("(NEXT VALUE FOR [increment].[increment_calificacion])");
+                entity.Property(e => e.FechaIngresoCalificacion)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.IdCalificacion).HasDefaultValueSql("(NEXT VALUE FOR [increment].[increment_calificacion])");
 
                 entity.Property(e => e.Nota).HasMaxLength(2);
 
@@ -134,7 +137,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Carrera>(entity =>
             {
                 entity.HasKey(e => e.CodigoCarrera)
-                    .HasName("PK__Carrera__2D5445FCC028A83C");
+                    .HasName("PK__Carrera__2D5445FCFF685C82");
 
                 entity.ToTable("Carrera");
 
@@ -143,21 +146,29 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
                     .IsUnicode(false)
                     .IsFixedLength();
 
-                entity.Property(e => e.FechaIngresoCarrera)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CodigoArea)
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
 
                 entity.Property(e => e.NombreCarrera)
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
                 entity.Property(e => e.VigenciaCarrera).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.CodigoAreaNavigation)
+                    .WithMany(p => p.Carreras)
+                    .HasForeignKey(d => d.CodigoArea)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Carrera.CodigoArea");
             });
 
             modelBuilder.Entity<Literal>(entity =>
             {
                 entity.HasKey(e => e.Nota)
-                    .HasName("PK__Literal__7D8C2AD07EA66E33");
+                    .HasName("PK__Literal__7D8C2AD031E87E11");
 
                 entity.ToTable("Literal");
 
@@ -169,7 +180,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Persona>(entity =>
             {
                 entity.HasKey(e => e.Matricula)
-                    .HasName("PK__Persona__0FB9FB4ECD5CDF77");
+                    .HasName("PK__Persona__0FB9FB4E2737E6C3");
 
                 entity.ToTable("Persona");
 
@@ -228,7 +239,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__2A49584CD0888B5C");
+                    .HasName("PK__Rol__2A49584C1BEDECA6");
 
                 entity.ToTable("Rol");
 
@@ -246,12 +257,15 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             modelBuilder.Entity<Seccion>(entity =>
             {
                 entity.HasKey(e => new { e.IdSeccion, e.IdAsignatura })
-                    .HasName("PK__Seccion__546413D41DC55D12");
+                    .HasName("PK__Seccion__546413D430060957");
 
                 entity.ToTable("Seccion");
 
                 entity.Property(e => e.IdSeccion).HasDefaultValueSql("(NEXT VALUE FOR [increment].[increment_seccion])");
 
+                entity.Property(e => e.FechaIngresoSección)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.VigenciaSección)
                     .IsRequired()

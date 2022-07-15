@@ -27,7 +27,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         {
             DocentesCalificacionesVM oAsignarEstudiantesVM = new DocentesCalificacionesVM()
             {
-                oListaRevision = _indiceContext.Calificacions.Include(s => s.IdAsignaturaNavigation).Include(s => s.Id).Include(m => m.MatriculaNavigation).Where(a => a.VigenciaCalificacion.Equals(true)).ToList(),
+                oListaRevision = _indiceContext.Calificacions.Include(s => s.Id.IdAsignaturaNavigation).Include(s => s.Id).Include(m => m.MatriculaNavigation).Where(a => a.VigenciaCalificacion.Equals(true)).ToList(),
                 oCalificacion = new Calificacion()
             };
             if (IdCalificacion == 0)
