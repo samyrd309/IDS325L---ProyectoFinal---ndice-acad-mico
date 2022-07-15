@@ -25,7 +25,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         public ActionResult Index()
         {
 
-            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).ToList();
+            List<Asignatura> lista = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(c => c.VigenciaAsignatura == true).ToList();
             return View(lista);
         }
 

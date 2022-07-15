@@ -18,11 +18,13 @@ else{
             <div class="mb-2">
                 <label class="form-label" asp-for="oAsignatura.CodigoAsignatura" id="codigoAsignatura">Código de Asignatura</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.CodigoAsignatura"  />
+                <span asp-validation-for="oAsignatura.CodigoAsignatura" class="text-danger"></span>
             </div>
 
             <div class="mb-2">
                 <label class="form-label" asp-for="oAsignatura.NombreAsignatura">Nombre asignatura</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.NombreAsignatura" />
+                <span asp-validation-for="oAsignatura.NombreAsignatura" class="text-danger"></span>
             </div>
 
             <div class="mb-2">
@@ -30,11 +32,13 @@ else{
                 <select class="form-select form-select-sm" asp-for="oAsignatura.CodigoArea" asp-items="@Model.oListaAreaAcademica">
                     <option selected disabled> --Seleccionar--</option>
                 </select>
+                <span asp-validation-for="oAsignatura.CodigoArea" class="text-danger"></span>
             </div>
 
             <div class="mb-2">
                 <label class="form-label" asp-for="oAsignatura.Credito">Cantidad de créditos</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.Credito"  />
+                <span asp-validation-for="oAsignatura.Credito" class="text-danger"></span>
             </div>
 
 
