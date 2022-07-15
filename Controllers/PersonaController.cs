@@ -70,21 +70,26 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateEstudiantes(EstudianteVM oEstudianteVM)
         {
-            oEstudianteVM.oPersona.IdRol = 2;
-            oEstudianteVM.oPersona.VigenciaPersona = true;
-           if(oEstudianteVM.oPersona.Matricula == 0)
+            try
             {
-                _indiceContext.Personas.Add(oEstudianteVM.oPersona);
+                oEstudianteVM.oPersona.IdRol = 2;
+                oEstudianteVM.oPersona.VigenciaPersona = true;
+                if (oEstudianteVM.oPersona.Matricula == 0)
+                {
+                    _indiceContext.Personas.Add(oEstudianteVM.oPersona);
+                }
+                else
+                {
+                    _indiceContext.Personas.Update(oEstudianteVM.oPersona);
+                }
+                _indiceContext.SaveChanges();
             }
-            else
+            catch (Exception)
             {
-                _indiceContext.Personas.Update(oEstudianteVM.oPersona);
-                
+                TempData["Error"] = "Error. El registro no ha actualizado en la base de datos";
+                return View();
             }
-
-
-
-            _indiceContext.SaveChanges();
+           
 
             return RedirectToAction("IndexEstudiantes", "Persona");
         }
@@ -124,29 +129,49 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDocentes(DocentesVM oDocenteVM)
         {
-            oDocenteVM.oPersona.IdRol = 3;
-            oDocenteVM.oPersona.VigenciaPersona = true;
-            if (oDocenteVM.oPersona.Matricula == 0)
+            try
             {
-                _indiceContext.Personas.Add(oDocenteVM.oPersona);
+                oDocenteVM.oPersona.IdRol = 3;
+                oDocenteVM.oPersona.VigenciaPersona = true;
+                if (oDocenteVM.oPersona.Matricula == 0)
+                {
+                    _indiceContext.Personas.Add(oDocenteVM.oPersona);
+                }
+                else
+                {
+                    _indiceContext.Personas.Update(oDocenteVM.oPersona);
+
+                }
+
+                _indiceContext.SaveChanges();
+
+                return RedirectToAction("IndexDocentes", "Persona");
             }
-            else
+            catch (Exception)
             {
-                _indiceContext.Personas.Update(oDocenteVM.oPersona);
-
+                TempData["Error"] = "Error. El registro no ha actualizado en la base de datos";
+                return View();
             }
 
-            _indiceContext.SaveChanges();
-
-            return RedirectToAction("IndexDocentes", "Persona");
+           
         }
 
 
         //Get Delete Persona
         public ActionResult Delete(int Matricula)
         {
-            Persona oPersona = _indiceContext.Personas.Include(c=> c.CarreraNavigation).Include(c=>c.CodigoAreaNavigation).Include(c=> c.IdRolNavigation).Where(c=>c.Matricula == Matricula).FirstOrDefault();
-            return View(oPersona);
+            try
+            {
+                Persona oPersona = _indiceContext.Personas.Include(c => c.CarreraNavigation).Include(c => c.CodigoAreaNavigation).Include(c => c.IdRolNavigation).Where(c => c.Matricula == Matricula).FirstOrDefault();
+                return View(oPersona);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Error al eliminar el registro";
+                return View();
+                throw;
+            }
+            
         }
 
         //Post Delete Persona

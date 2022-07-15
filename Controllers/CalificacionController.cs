@@ -28,8 +28,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public ActionResult IndexAsignaturasDocente(int Matricula)
         {
-            Matricula = 5;
-            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).Distinct().ToList();
+            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).Distinct().ToList();
 
             var query = from Calificacion in _indiceContext.Set<Calificacion>()
                         join Seccion in _indiceContext.Set<Seccion>()

@@ -25,7 +25,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         // GET: CalificacionesEstudiantesController
         public ActionResult Index(int Matricula)
         {
-            Matricula = 2;
 
             DataSet data = new DataSet();
             using (SqlConnection con = new SqlConnection(_config.GetConnectionString("cadenaSQL")))
@@ -55,7 +54,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public JsonResult ListaCalificaciones(int Matricula)
         {
-            Matricula = 2;
             
             int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
 

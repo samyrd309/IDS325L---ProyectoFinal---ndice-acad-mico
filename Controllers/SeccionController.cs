@@ -145,21 +145,20 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [HttpPost]
         public ActionResult insert(AsignarEstudiantesVM oAsignarEstudiantesVM , int Matricula, int IdAsignatura, int IdSeccion)
         {
-           
-            if (oAsignarEstudiantesVM.oCalificacion.IdCalificacion == 0)
+            try
             {
                 oAsignarEstudiantesVM.oCalificacion.Matricula = Matricula;
                 oAsignarEstudiantesVM.oCalificacion.IdAsignatura = IdAsignatura;
                 oAsignarEstudiantesVM.oCalificacion.IdSeccion = IdSeccion;
                 _indiceContext.Calificacions.Add(oAsignarEstudiantesVM.oCalificacion);
+                _indiceContext.SaveChanges();
+                return RedirectToAction("CreateAsignarEstudiantes", "Seccion", new { IdSeccion, IdAsignatura });
             }
-            else
+            catch (Exception)
             {
-
+                return View("CreateAsignarEstudiantes", "Seccion");
             }
-            _indiceContext.SaveChanges();
-
-            return RedirectToAction("CreateAsignarEstudiantes", "Seccion", new { IdSeccion, IdAsignatura });
+            
         }
 
 

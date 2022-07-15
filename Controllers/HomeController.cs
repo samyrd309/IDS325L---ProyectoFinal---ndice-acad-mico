@@ -73,7 +73,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     }
                     else if (usuario.IdRol == 3)
                     {
-                        return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario);
+                        return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario.Matricula);
                     }
                     else
                     {

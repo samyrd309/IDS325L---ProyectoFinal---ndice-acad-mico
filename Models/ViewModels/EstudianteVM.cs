@@ -8,5 +8,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels
 
         public List<SelectListItem> oCarrera { get; set; }
         public List<SelectListItem> oAreaAcademica { get; set; }
+
+        public List<Persona> lista { get; set; }
     }
 }
