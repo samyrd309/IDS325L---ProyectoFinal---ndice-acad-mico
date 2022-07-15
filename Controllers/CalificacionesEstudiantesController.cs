@@ -114,5 +114,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 data = lista} );
         }
 
+        public ActionResult Ranking() 
+        { 
+            return View();
+        }
+
     }
 }

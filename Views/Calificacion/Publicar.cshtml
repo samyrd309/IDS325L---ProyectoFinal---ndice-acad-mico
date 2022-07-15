@@ -6,12 +6,12 @@
 
 <h1>Publicar Calificación</h1>
 
-<form asp-controller="Calificacion" asp-action="Create" method="post">
+<form asp-controller="Calificacion" asp-action="Publicar" method="post">
     <input type="hidden" asp-for="IdCalificacion"/>
     <input name="Matricula" asp-for="Matricula" type="hidden"/>
-    <input type="hidden" name="IdAsignatura" id="asg" />
-    <input type="hidden" name="IdSeccion" id="sec" />
-    <input type="hidden" name="Trimestre" id="tri" />
+    <input type="hidden" asp-for="IdAsignatura" id="asg" />
+    <input type="hidden" asp-for="IdSeccion" id="sec" />
+    <input type="hidden" asp-for="Trimestre" id="tri" />
     <div class="mb-2">
         <label for="Nota">Calificación</label>
         <input type="" name="Nota" asp-for="Nota"/>

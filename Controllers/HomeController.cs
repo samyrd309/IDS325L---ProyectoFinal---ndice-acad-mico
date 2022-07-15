@@ -132,16 +132,5 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return View("Login");
         }
 
-
-        public ActionResult Privacy()
-        {
-            ViewBag.test = new List<Literal>()
-            {
-                new Literal() {Nota = "G", Numero = (decimal?)1.6},
-                new Literal() {Nota = "H", Numero = (decimal?)1.9}
-            };
-            
-            return View();
-        }
     }
 }
