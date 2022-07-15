@@ -4,19 +4,31 @@
     padding:0;
 }
 
+
 html {
-  font-size: 16px;
-  min-width: 375px;
+    font-size: 16px;
+    min-width: 375px;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 
+footer {
+    background-color: red;
+    color: white;
+    height:9vh;
+    margin-top: auto;
+}
 
-
-@media (min-width: 768px) {
-  html {
-    font-size: 18px;
-  }
-
+footer  >div {
+    
+    color: white;
+}
     /*Pagina de bienvenida*/
   
     /*---------------------*/
