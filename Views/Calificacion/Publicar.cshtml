@@ -9,9 +9,9 @@
 <form asp-controller="Calificacion" asp-action="Create" method="post">
     <input type="hidden" asp-for="IdCalificacion"/>
     <input name="Matricula" asp-for="Matricula" type="hidden"/>
-    <input type="hidden" name="IdAsignatura" asp-for="IdAsignatura" />
-    <input type="hidden" name="IdSeccion" asp-for="IdSeccion" />
-    <input type="hidden" name="Trimestre" asp-for="Trimestre" />
+    <input type="hidden" name="IdAsignatura" id="asg" />
+    <input type="hidden" name="IdSeccion" id="sec" />
+    <input type="hidden" name="Trimestre" id="tri" />
     <div class="mb-2">
         <label for="Nota">Calificación</label>
         <input type="" name="Nota" asp-for="Nota"/>
@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <div class="col mb-2">
             <button class="btn btn-primary" type="submit">Guardar</button>
-            <a class="btn btn-dark btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion">Volver</a>
+            <a class="btn btn-dark btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion" asp-route-IdSeccion="@Model.IdSeccion" asp-route-IdAsignatura="@Model.IdAsignatura" asp-route-Trimestre="@Model.Trimestre">Volver</a>
         </div>
     </div>
 </form>

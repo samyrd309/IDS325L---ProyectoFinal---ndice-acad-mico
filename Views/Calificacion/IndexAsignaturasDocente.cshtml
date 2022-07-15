@@ -6,28 +6,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>IndexAsignaturasDocente</h1>
+<h1>Seleccionar Asignatura a Evaluar</h1>
 
-<div class="panel-group"id="accordion">
-    @foreach(var item in Model)
-    {
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="@item.IdAsignaturaNavigation.IdAsignatura">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    @item.IdAsignaturaNavigation.NombreAsignatura
-                    </button>
-                </h2>
-                <div id="@item.IdAsignaturaNavigation.IdAsignatura" class="accordion-collapse collapse show" aria-labelledby="@item.IdAsignaturaNavigation.IdAsignatura" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>Progando</p>
-                    </div>
-                </div>
- 
-            </div>
-        </div>
-    }
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Sección</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.IdAsignaturaNavigation.CodigoAsignatura - @item.IdAsignaturaNavigation.NombreAsignatura</td>
+                    <td>@item.NumeroSeccion</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion" asp-route-IdAsignatura="@item.IdAsignatura" asp-route-IdSeccion="@item.IdSeccion" asp-route-Trimestre="ViewBag.Trimestre">Publicar</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
 </div>
+
+
        
 
 
