@@ -102,7 +102,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         // GET: CalificacionController/Edit/5
         public ActionResult Publicar(int Matricula, int IdAsignatura, string Trimestre)
         {
-            if (Matricula == null || _indiceContext.Calificacions == null)
+            if (Matricula == null || IdAsignatura == null || _indiceContext.Calificacions == null)
             {
                 return NotFound();
             }
