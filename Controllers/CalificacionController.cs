@@ -5,6 +5,8 @@ using IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
@@ -12,13 +14,15 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
     public class CalificacionController : Controller
     {
 
-
-
         private readonly IndiceContext _indiceContext;
-        public CalificacionController(IndiceContext indiceContext)
+        private readonly IConfiguration _config;
+        public CalificacionController(IndiceContext indiceContext, IConfiguration config)
         {
             _indiceContext = indiceContext;
+            _config = config;
         }
+
+
         // GET: CalificacionController
         public ActionResult Index()
         {
@@ -74,6 +78,20 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 calificacion.VigenciaCalificacion = true;
                 _indiceContext.Update(calificacion);
                 _indiceContext.SaveChanges();
+
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(_config.GetConnectionString("cadenaSQL")))
+                {
+                    string query = $"EXEC ModificarIndice '{calificacion.Matricula}'";
+                    using (SqlCommand sql = new SqlCommand(query))
+                    {
+                        sql.Connection = con;
+                        sql.CommandType = CommandType.Text;
+                        con.Open();
+                        sql.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -131,6 +149,20 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 calificacion.VigenciaCalificacion = true;
                 _indiceContext.Update(calificacion);
                 _indiceContext.SaveChanges();
+
+                DataSet ds = new DataSet();
+                using (SqlConnection con = new SqlConnection(_config.GetConnectionString("cadenaSQL")))
+                {
+                    string query = $"EXEC ModificarIndice '{calificacion.Matricula}'";
+                    using (SqlCommand sql = new SqlCommand(query))
+                    {
+                        sql.Connection = con;
+                        sql.CommandType = CommandType.Text;
+                        con.Open();
+                        sql.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
