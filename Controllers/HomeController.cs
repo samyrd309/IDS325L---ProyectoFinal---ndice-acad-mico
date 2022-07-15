@@ -49,6 +49,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 usuario = _indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.Contraseña == Contraseña);
                 //usuario = await _indiceContext.Personas.FindAsync(Matricula, Contraseña);
 
+
                 if (usuario != null)
                 {
                     var claims = new List<Claim>
@@ -62,7 +63,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-
+                    
                     if (usuario.IdRol == 1)
                     {
                         return RedirectToAction("IndexEstudiantes", "Persona", usuario);
@@ -73,7 +74,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     }
                     else if (usuario.IdRol == 3)
                     {
-                        return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario.Matricula);
+                        return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario);
                     }
                     else
                     {

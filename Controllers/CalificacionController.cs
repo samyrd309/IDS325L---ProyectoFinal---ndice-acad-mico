@@ -90,11 +90,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return RedirectToAction("Index", "Calificacion");
         }
 
-        public ActionResult IndexPublicar(int IdSeccion, int IdAsignatura, string Trimestre)
+        public ActionResult IndexPublicar(int IdSeccion, int IdAsignatura, string Trimestre, int Matricula)
         {
-            //IdSeccion = 4;
-            //IdAsignatura = 2;
-            //Trimestre = "2022-2";
+            ViewBag.matricula = Matricula;
+
             List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.IdSeccion == IdSeccion && c.IdAsignatura == IdAsignatura).ToList();
             return View(lista);
         }

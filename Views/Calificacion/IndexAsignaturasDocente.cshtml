@@ -24,7 +24,7 @@
                     <td>@item.IdAsignaturaNavigation.CodigoAsignatura - @item.IdAsignaturaNavigation.NombreAsignatura</td>
                     <td>@item.NumeroSeccion</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion" asp-route-IdAsignatura="@item.IdAsignatura" asp-route-IdSeccion="@item.IdSeccion" asp-route-Trimestre="ViewBag.Trimestre">Publicar</a>
+                        <a class="btn btn-primary btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion" asp-route-IdAsignatura="@item.IdAsignatura" asp-route-IdSeccion="@item.IdSeccion" asp-route-Trimestre="ViewBag.Trimestre" asp-route-Matricula="@item.Matricula">Publicar</a>
                     </td>
                 </tr>
 

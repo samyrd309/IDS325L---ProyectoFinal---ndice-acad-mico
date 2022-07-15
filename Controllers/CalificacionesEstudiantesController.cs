@@ -47,8 +47,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }
             }
 
+            ViewBag.Matricula = Matricula;
+
             return View();
-           
         }
 
 
@@ -66,6 +67,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             var query = from Calificacion in _indiceContext.Set<Calificacion>()
                         join Asignatura in _indiceContext.Set<Asignatura>()
                             on new { Calificacion.IdAsignatura, Calificacion.Matricula } equals new { Asignatura.IdAsignatura, Matricula }
+                        where Calificacion.Nota != null
                         select new { Asignatura.CodigoAsignatura, Asignatura.NombreAsignatura, Asignatura.Credito, Calificacion.Trimestre, Calificacion.Nota };
 
             int count = query.Count();
