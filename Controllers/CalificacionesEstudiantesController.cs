@@ -1,4 +1,5 @@
 ﻿using IDS325L___ProyectoFinal___Índice_académico.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,8 +9,10 @@ using System.Linq;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
+    [Authorize]
     public class CalificacionesEstudiantesController : Controller
     {
+        
         private readonly IndiceContext _indiceContext;
         private readonly IConfiguration _config;
 

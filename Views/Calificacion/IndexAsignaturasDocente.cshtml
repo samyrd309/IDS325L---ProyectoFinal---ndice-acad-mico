@@ -8,22 +8,26 @@
 
 <h1>IndexAsignaturasDocente</h1>
 
- @foreach(var item in Model){
-<div class="accordion" id="accordionPanelsStayOpenExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-@item.IdAsignaturaNavigation.NombreAsignatura">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.IdAsignaturaNavigation.CodigoAsignatura" aria-expanded="true" aria-controls="panelsStayOpen-@item.IdAsignaturaNavigation.CodigoAsignatura">
-        @item.IdAsignaturaNavigation.NombreAsignatura
-      </button>
-    </h2>
-    <div id="panelsStayOpen-@item.IdAsignaturaNavigation.CodigoAsignatura" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-@item.IdAsignaturaNavigation.NombreAsignatura">
-      <div class="accordion-body">
-        
-      </div>
-    </div>
-  </div>
+<div class="panel-group"id="accordion">
+    @foreach(var item in Model)
+    {
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="@item.IdAsignaturaNavigation.IdAsignatura">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    @item.IdAsignaturaNavigation.NombreAsignatura
+                    </button>
+                </h2>
+                <div id="@item.IdAsignaturaNavigation.IdAsignatura" class="accordion-collapse collapse show" aria-labelledby="@item.IdAsignaturaNavigation.IdAsignatura" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Progando</p>
+                    </div>
+                </div>
+ 
+            </div>
+        </div>
+    }
 </div>
-  }
        
 
 

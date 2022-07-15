@@ -1,6 +1,7 @@
 ﻿using IDS325L___ProyectoFinal___Índice_académico.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -35,6 +36,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             return View();
         }
 
+
+
+
         //POST: Usuario
         [HttpPost]
         public async Task<IActionResult> IniciarSesion(int Matricula, string Contraseña)
@@ -57,6 +61,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+
                     if (usuario.IdRol == 1)
                     {
                         return RedirectToAction("IndexEstudiantes", "Persona", usuario);
@@ -77,11 +83,12 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }
                 else
                 {
+                    TempData["InvalidUser"] = "Bienvenido";
                     return RedirectToAction("Login", "Home");
                 }
 
             }
-            return RedirectToAction("Login", "Home", usuario);
+            return RedirectToAction("Login", "Home");
 
 
         }

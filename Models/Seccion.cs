@@ -18,6 +18,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public bool? VigenciaSección { get; set; }
 
         public virtual Asignatura IdAsignaturaNavigation { get; set; } = null!;
+        public virtual List<Asignatura> IdAsignaturaNavigation2 { get; set; } = null!;
         public virtual Persona? MatriculaNavigation { get; set; }
         public virtual ICollection<Calificacion> Calificacions { get; set; }
     }
