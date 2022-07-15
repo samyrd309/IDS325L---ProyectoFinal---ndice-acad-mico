@@ -4,8 +4,12 @@ using IDS325L___ProyectoFinal___Índice_académico.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
+
+    [Authorize]
     public class AsignaturasController : Controller
     {
         private readonly IndiceContext _indiceContext;

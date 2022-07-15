@@ -1,4 +1,5 @@
 ﻿using IDS325L___ProyectoFinal___Índice_académico.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,8 +9,10 @@ using System.Linq;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
+    [Authorize]
     public class CalificacionesEstudiantesController : Controller
     {
+        
         private readonly IndiceContext _indiceContext;
         private readonly IConfiguration _config;
 
@@ -22,7 +25,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         // GET: CalificacionesEstudiantesController
         public ActionResult Index(int Matricula)
         {
-            Matricula = 2;
 
             DataSet data = new DataSet();
             using (SqlConnection con = new SqlConnection(_config.GetConnectionString("cadenaSQL")))
@@ -52,7 +54,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public JsonResult ListaCalificaciones(int Matricula)
         {
-            Matricula = 2;
             
             int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
 

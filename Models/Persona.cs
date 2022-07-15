@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Models
 {
@@ -10,7 +11,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
             Calificacions = new HashSet<Calificacion>();
             Seccions = new HashSet<Seccion>();
         }
-
+        [Required]
         public int Matricula { get; set; }
         public int IdRol { get; set; }
         public string? Carrera { get; set; }
@@ -20,6 +21,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public string CorreoElectronico { get; set; } = null!;
         public bool? VigenciaPersona { get; set; }
         public decimal Indice { get; set; }
+        [Required]
         public string Contraseña { get; set; } = null!;
 
         public virtual Carrera? CarreraNavigation { get; set; }

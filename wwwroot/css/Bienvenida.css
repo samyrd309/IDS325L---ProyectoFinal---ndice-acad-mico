@@ -1,0 +1,52 @@
+﻿html{
+    font-size: 20px
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+
+main {
+    height: 100vh;
+
+}
+
+.right-bg {
+    position: absolute;
+    width: 50%;
+    height: 100vh;
+    background-color: red; 
+    right:0;
+    z-index:-1;
+}
+
+
+.info-cont{
+    height:100%
+}
+
+.left-bg {
+    position: absolute;
+    width: 50%;
+    height: 100vh;
+    left: 0;
+    z-index: -1;
+}
+
+.right-cont{
+    color:white;
+    height: 100%;
+}
+
+.btn-iniciar-sesion{
+    background-color: white;
+    color: red;
+}
+
+.btn-iniciar-sesion:hover {
+    background-color: red;
+    color: white;
+    border: 1px solid white;
+}

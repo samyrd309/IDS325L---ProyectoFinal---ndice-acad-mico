@@ -4,9 +4,11 @@ using IDS325L___ProyectoFinal___Índice_académico.Models;
 using IDS325L___ProyectoFinal___Índice_académico.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
+    [Authorize]
     public class CalificacionController : Controller
     {
 
@@ -26,8 +28,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public ActionResult IndexAsignaturasDocente(int Matricula)
         {
-            Matricula = 5;
-            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).Distinct().ToList();
+            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).Distinct().ToList();
 
             var query = from Calificacion in _indiceContext.Set<Calificacion>()
                         join Seccion in _indiceContext.Set<Seccion>()
