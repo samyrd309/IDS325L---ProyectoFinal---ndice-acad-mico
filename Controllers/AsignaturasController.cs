@@ -52,50 +52,38 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AsignaturaVM oAsignaturaVM)
         {
-            oAsignaturaVM.oAsignatura.VigenciaAsignatura = true;
-            if(oAsignaturaVM.oAsignatura.IdAsignatura == 0)
+            if(oAsignaturaVM.oAsignatura.CodigoAsignatura == null || oAsignaturaVM.oAsignatura.NombreAsignatura == null || oAsignaturaVM.oAsignatura.Credito == 0 || oAsignaturaVM.oAsignatura.CodigoArea ==  null)
             {
-                _indiceContext.Asignaturas.Add(oAsignaturaVM.oAsignatura);
-                
-            }
-            else
-            {
-                _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
-                
+                return NotFound();
             }
 
-            _indiceContext.SaveChanges();
+            try
+            {
+                oAsignaturaVM.oAsignatura.VigenciaAsignatura = true;
+                if(oAsignaturaVM.oAsignatura.IdAsignatura == 0)
+                    _indiceContext.Asignaturas.Add(oAsignaturaVM.oAsignatura);
+                else
+                    _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
+
+                _indiceContext.SaveChanges();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
 
 
             return RedirectToAction("Index", "Asignaturas");
         }
 
-        // GET: AsignaturasController/Edit/5
-        public IActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AsignaturasController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: AsignaturasController/Delete/5
         [HttpGet]
         public ActionResult Delete(int idAsignatura)
         {
+                               
             Asignatura oAsignatura = _indiceContext.Asignaturas.Include(c => c.CodigoAreaNavigation).Where(m => m.IdAsignatura == idAsignatura).FirstOrDefault();
             return View(oAsignatura);
         }

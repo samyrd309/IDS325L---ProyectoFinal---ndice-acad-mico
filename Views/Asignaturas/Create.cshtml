@@ -16,12 +16,17 @@ else{
 
 
             <div class="mb-2">
-                <label class="form-label" asp-for="oAsignatura.CodigoAsignatura">Código de Asignatura</label>
+                <label class="form-label" asp-for="oAsignatura.CodigoAsignatura" id="codigoAsignatura">Código de Asignatura</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.CodigoAsignatura"  />
             </div>
 
             <div class="mb-2">
-                <label class="form-label" asp-for="oAsignatura.CodigoArea">Código de Asignatura</label>
+                <label class="form-label" asp-for="oAsignatura.NombreAsignatura">Nombre asignatura</label>
+                <input class="form-control form-control-sm" asp-for="oAsignatura.NombreAsignatura" />
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" asp-for="oAsignatura.CodigoArea">Código de Área Académica</label>
                 <select class="form-select form-select-sm" asp-for="oAsignatura.CodigoArea" asp-items="@Model.oListaAreaAcademica">
                     <option selected disabled> --Seleccionar--</option>
                 </select>
@@ -32,10 +37,7 @@ else{
                 <input class="form-control form-control-sm" asp-for="oAsignatura.Credito"  />
             </div>
 
-            <div class="mb-2">
-                <label class="form-label" asp-for="oAsignatura.NombreAsignatura">Nombre asignatura</label>
-                <input class="form-control form-control-sm" asp-for="oAsignatura.NombreAsignatura" />
-            </div>
+
 
             <div class="mb-2">
                 @if(Model.oAsignatura.IdAsignatura == 0)
@@ -53,3 +55,21 @@ else{
         </form>
     </div>  
 </div>
+
+@section Scripts{
+
+    <script>
+        
+        $(document).ready(function()
+            {
+                if $("#codigoAsignatura").val() == ''
+                {
+                    alert("Ingrese el código de la asignatura");
+                    return false;
+                }
+            return true;
+            }
+        );
+    </script>
+
+}
