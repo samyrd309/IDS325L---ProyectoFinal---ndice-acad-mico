@@ -18,7 +18,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         public string Nombre { get; set; } = null!;
         public string Apellido { get; set; } = null!;
         public string CorreoElectronico { get; set; } = null!;
-        public DateTime FechaIngresoPersona { get; set; }
         public bool? VigenciaPersona { get; set; }
         public decimal Indice { get; set; }
         public string Contraseña { get; set; } = null!;

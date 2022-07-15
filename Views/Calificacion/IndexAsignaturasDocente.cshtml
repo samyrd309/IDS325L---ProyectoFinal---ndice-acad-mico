@@ -1,0 +1,33 @@
+﻿@model List<IDS325L___ProyectoFinal___Índice_académico.Models.Seccion>
+
+
+@{
+    ViewData["Title"] = "IndexAsignaturasDocente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>IndexAsignaturasDocente</h1>
+
+ @foreach(var item in Model){
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-@item.IdAsignaturaNavigation.NombreAsignatura">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.IdAsignaturaNavigation.CodigoAsignatura" aria-expanded="true" aria-controls="panelsStayOpen-@item.IdAsignaturaNavigation.CodigoAsignatura">
+        @item.IdAsignaturaNavigation.NombreAsignatura
+      </button>
+    </h2>
+    <div id="panelsStayOpen-@item.IdAsignaturaNavigation.CodigoAsignatura" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-@item.IdAsignaturaNavigation.NombreAsignatura">
+      <div class="accordion-body">
+        
+      </div>
+    </div>
+  </div>
+</div>
+  }
+       
+
+
+
+
+
+            

@@ -52,8 +52,23 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                    return RedirectToAction("Index", "CalificacionesEstudiantes", usuario);
+                    if (usuario.IdRol == 1)
+                    {
+                        return RedirectToAction("IndexEstudiantes", "Persona", usuario);
+                    }
+                    else if (usuario.IdRol == 2)
+                    {
+                        return RedirectToAction("Index", "CalificacionesEstudiantes", usuario);
+                    }
+                    else if (usuario.IdRol == 3)
+                    {
+                        return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Home");
+                    }
+                    
                 }
                 else
                 {

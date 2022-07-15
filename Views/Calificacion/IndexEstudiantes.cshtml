@@ -11,8 +11,8 @@
     <thead>
         <th>Nombre del estudiante</th>
         <th>Nombre de la asignatura</th>
+        <th>Número de la sección</th>
         <th>Calificación</th>
-        <th>Trimestre</th>
         <th></th>
     </thead>
     <tbody>
@@ -29,7 +29,9 @@
                 {
                     <td>N/A</td>
                 }
-                <td>@item.Trimestre</td>
+                <td>
+                    @item.IdSeccion
+                </td>
                 <td>
                     <a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Calificacion" asp-route-Trimestre="@item.Trimestre" asp-route-IdAsignatura="@item.IdAsignatura"  asp-route-Matricula="@item.Matricula" >Revisión</a>
                 </td>
