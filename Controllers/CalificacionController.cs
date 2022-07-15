@@ -26,8 +26,16 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public ActionResult IndexAsignaturasDocente(int Matricula)
         {
+            Matricula = 5;
+            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).Distinct().ToList();
 
-            List<Seccion> lista = _indiceContext.Seccions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaSección.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true)&& c.Matricula == Matricula).ToList();
+            var query = from Calificacion in _indiceContext.Set<Calificacion>()
+                        join Seccion in _indiceContext.Set<Seccion>()
+                            on Calificacion.IdSeccion equals Seccion.IdSeccion
+                        select Calificacion.Trimestre;
+
+            ViewBag.Trimestre = query;
+
             return View(lista);
         }
 
@@ -85,8 +93,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         {
             //IdSeccion = 4;
             //IdAsignatura = 2;
-            // Trimestre = "2022-2";
-            List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.IdSeccion == IdSeccion && c.IdAsignatura == IdAsignatura && c.Trimestre == Trimestre).ToList();
+            //Trimestre = "2022-2";
+            List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.IdSeccion == IdSeccion && c.IdAsignatura == IdAsignatura).ToList();
             return View(lista);
         }
 
