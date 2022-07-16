@@ -119,7 +119,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 oDocenteVM.oPersona = _indiceContext.Personas.Find(Matricula);
             }
 
-
+            ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _indiceContext.Carreras.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
             return View(oDocenteVM);
         }
 
@@ -128,7 +129,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDocentes(DocentesVM oDocenteVM)
         {
-            try
+            ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _indiceContext.Carreras.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
+
+            if (oDocenteVM.oPersona.Apellido != null || oDocenteVM.oPersona.Nombre != null || oDocenteVM.oPersona.CodigoArea != null || oDocenteVM.oPersona.Carrera != null || oDocenteVM.oPersona.Contraseña != null || oDocenteVM.oPersona.CorreoElectronico != null)
             {
                 oDocenteVM.oPersona.IdRol = 3;
                 oDocenteVM.oPersona.VigenciaPersona = true;
@@ -146,10 +150,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
                 return RedirectToAction("IndexDocentes", "Persona");
             }
-            catch (Exception)
+            else
             {
-                TempData["Error"] = "Error. El registro no ha actualizado en la base de datos";
-                return View();
+                ViewBag.Message = "Debe ingresar todas las informaciones del formulario";
+                return View("CreateDocentes", oDocenteVM);
             }
 
            

@@ -16,21 +16,26 @@ else{
     <div class="col-sm-4">
         <form asp-action="CreateDocentes" asp-controller="Persona" method="post">
             <input type="hidden" asp-for="oPersona.Matricula"/>
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
 
             @if(Model.oPersona.Matricula == 0)
             {
                 <div class="mb-2"> 
-                    <label class="form-label" asp-for="oPersona.Nombre">Nombre</label>
+                    <label class="form-label" asp-for="oPersona.Nombre">Nombre<span style="color:red">*</span></label>
                     <input class="form-control form-control-sm" asp-for="oPersona.Nombre" type="text"/>
+                    <span asp-validation-for="oPersona.Nombre" class="text-danger"></span>
                 </div>
                 <div class="mb-2"> 
-                    <label class="form-label" asp-for="oPersona.Apellido">Apellido</label>
+                    <label class="form-label" asp-for="oPersona.Apellido">Apellido<span style="color:red">*</span></label>
                     <input class="form-control form-control-sm" asp-for="oPersona.Apellido" type="text"/>
                 </div>
                 
                 <div class="mb-2"> 
-                    <label class="form-label" asp-for="oPersona.CodigoAreaNavigation.CodigoArea">Area Academica</label>
-                    <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
+                    <label class="form-label" asp-for="oPersona.CodigoAreaNavigation.CodigoArea">Área Académica<span style="color:red">*</span></label>
+                    <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@ViewBag.AreaList">
                         <option selected disabled>-- Seleccionar --</option>
                     </select>
                 </div>
@@ -41,11 +46,11 @@ else{
                     </select>
                 </div>
                 <div class="mb-2"> 
-                    <label class="form-label" asp-for="oPersona.CorreoElectronico">Correo electronico</label>
+                    <label class="form-label" asp-for="oPersona.CorreoElectronico">Correo electrónico<span style="color:red">*</span></label>
                     <input class="form-control form-control-sm" asp-for="oPersona.CorreoElectronico" type="text"/>
                 </div>
                 <div class="mb-2"> 
-                    <label class="form-label" asp-for="oPersona.Contraseña">Contraseña</label>
+                    <label class="form-label" asp-for="oPersona.Contraseña">Contraseña<span style="color:red">*</span></label>
                     <input class="form-control form-control-sm" asp-for="oPersona.Contraseña" type="text"/>
                 </div>
             }

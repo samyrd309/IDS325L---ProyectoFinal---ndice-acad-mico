@@ -13,8 +13,10 @@ else{
     <div class="col-sm-4">
         <form asp-action="Create" asp-controller="Asignaturas" method="post">
             <input type="hidden" asp-for="oAsignatura.IdAsignatura"/>
-
-
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             <div class="mb-2">
                 <label class="form-label" asp-for="oAsignatura.CodigoAsignatura" id="codigoAsignatura">Código de Asignatura</label>
                 <input class="form-control form-control-sm" asp-for="oAsignatura.CodigoAsignatura"  />
@@ -29,7 +31,7 @@ else{
 
             <div class="mb-2">
                 <label class="form-label" asp-for="oAsignatura.CodigoArea">Código de Área Académica</label>
-                <select class="form-select form-select-sm" asp-for="oAsignatura.CodigoArea" asp-items="@Model.oListaAreaAcademica">
+                <select class="form-select form-select-sm" asp-for="oAsignatura.CodigoArea" asp-items="@ViewBag.AreaList">
                     <option selected disabled> --Seleccionar--</option>
                 </select>
                 <span asp-validation-for="oAsignatura.CodigoArea" class="text-danger"></span>

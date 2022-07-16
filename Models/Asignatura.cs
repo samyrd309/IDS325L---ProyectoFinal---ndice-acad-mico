@@ -12,13 +12,13 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Models
         }
 
         public int IdAsignatura { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Ingrese el código de la asignatura")]
         public string? CodigoAsignatura { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingrese el código del área académica")]
         public string CodigoArea { get; set; } = null!;
-        [Required]
+        [Required(ErrorMessage = "Ingrese la cantidad de créditos")]
         public int Credito { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingrese el nombre de la asignatura")]
         public string NombreAsignatura { get; set; } = null!;
         public DateTime? FechaIngresoAsignatura { get; set; }
         public bool? VigenciaAsignatura { get; set; }

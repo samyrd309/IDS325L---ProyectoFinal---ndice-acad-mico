@@ -48,6 +48,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 oAsignaturaVM.oAsignatura = _indiceContext.Asignaturas.Find(idAsignatura);
             }
 
+            ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
             return View(oAsignaturaVM);
         }
 
@@ -56,9 +57,24 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AsignaturaVM oAsignaturaVM)
         {
-            if(oAsignaturaVM.oAsignatura.CodigoAsignatura == null || oAsignaturaVM.oAsignatura.NombreAsignatura == null || oAsignaturaVM.oAsignatura.Credito == 0 || oAsignaturaVM.oAsignatura.CodigoArea ==  null)
+
+            ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+
+            if (oAsignaturaVM.oAsignatura.CodigoAsignatura == null || oAsignaturaVM.oAsignatura.NombreAsignatura == null || oAsignaturaVM.oAsignatura.Credito == 0 || oAsignaturaVM.oAsignatura.CodigoArea ==  null)
             {
-                return NotFound();
+                return View("Create", oAsignaturaVM);
+            }
+
+            if(_indiceContext.Asignaturas.FirstOrDefault(s => s.CodigoAsignatura == oAsignaturaVM.oAsignatura.CodigoAsignatura) != null)
+            {
+                ViewBag.Message = "El código de la asignatura ya existe en el sistema";
+                return View("Create", oAsignaturaVM);
+            }
+
+            if (_indiceContext.Asignaturas.FirstOrDefault(s => s.NombreAsignatura == oAsignaturaVM.oAsignatura.NombreAsignatura) != null)
+            {
+                ViewBag.Message = "El nombre de la asignatura ya existe en el sistema";
+                return View("Create", oAsignaturaVM);
             }
 
             try
