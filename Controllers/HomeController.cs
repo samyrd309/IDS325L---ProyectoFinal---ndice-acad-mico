@@ -37,18 +37,33 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         }
 
 
-
-
         //POST: Usuario
         [HttpPost]
-        public async Task<IActionResult> IniciarSesion(int Matricula, string Contraseña)
+        public async Task<IActionResult> Login(int? Matricula, string? Contraseña)
         {
 
             if (ModelState.IsValid)
             {
+                if(Matricula == null || Contraseña == null)
+                {
+                    ViewBag.Message = string.Format("Necesita llenar todos los campos del formulario");
+                    return RedirectToAction("Login");
+                }
+
                 usuario = _indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.Contraseña == Contraseña);
                 //usuario = await _indiceContext.Personas.FindAsync(Matricula, Contraseña);
 
+                if(_indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.Contraseña == Contraseña) == null)
+                {
+                    ViewBag.Message = string.Format("La Matricula registrada no existe, debe ser ingresado al sistema");
+                    return RedirectToAction("Login");
+                }
+
+                if(usuario == null)
+                {
+                    ViewBag.Message = string.Format("La contraseña es inválida");
+                    return RedirectToAction("Login");
+                }
 
                 if (usuario != null)
                 {
@@ -108,21 +123,28 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         }
 
         [HttpPost]
-        public ActionResult CambiarContraseña(int Matricula, string Email, string Contraseña, string Confirmacion)
+        public ActionResult CambiarContraseña(int? Matricula, string? Email, string? Contraseña, string? Confirmacion)
         {
+            if(Matricula == null || Email == null || Contraseña == null || Confirmacion == null)
+            {
+                ViewBag.Message = string.Format("Necesita llenar todos los campos del formulario");
+                return View();
+            }
+
             var usuario = _indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.CorreoElectronico == Email);
 
             if (usuario == null)
             {
                 ViewBag.Message = string.Format("El usuario no existe en el sistema");
-                return View(); // Error de campos vacíos
+                return View();
             }
 
             if (Contraseña != Confirmacion)
             {
                 ViewBag.Message = string.Format("La contraseña es diferente a la confirmación");
-                return View();  // Vista o mensaje de error
-            }// Manejar mecanismo de validación de nueva contraseña
+                return View();  
+            }
+
 
 
             usuario.Contraseña = Contraseña;

@@ -5,33 +5,41 @@
 
 <h1>Cambiar Contraseña</h1>
 
-@if (ViewBag.Message != null)
-    {
-        <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.Message");
-            };
-        </script>
-    }
-
 <div class="">
     <div class="col-sm-4">
         <form asp-action="CambiarContraseña" asp-controller="Home" method="post">
             <div class="mb-2"> 
                 <label class="form-label" for="Matricula">Matrícula</label>
                 <input class="form-control form-control-sm" name="Matricula" type="text"/>
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
+
             </div>
             <div class="mb-2"> 
                 <label class="form-label" for="Email">Correo electronico</label>
                 <input class="form-control form-control-sm" name="Email" type="text"/>
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             </div>
             <div class="mb-2"> 
                 <label class="form-label" for="Contraseña">Contraseña</label>
                 <input class="form-control form-control-sm" name="Contraseña" type="password"/>
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             </div>
             <div class="mb-2"> 
                 <label class="form-label" for="Confirmacion">Confirmación Contraseña</label>
                 <input class="form-control form-control-sm" name="Confirmacion" type="password"/>
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             </div>            
             <div class="mb-2"> 
                     <button class="btn btn-primary btn-sm w-25" type="submit">Cambiar Contraseña</button>

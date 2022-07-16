@@ -33,17 +33,26 @@
 <hr />
 <div class="row d-flex justify-content-center align-self-auto">
     <div class="col-md-4">
-        <form asp-controller="Home" asp-action="IniciarSesion" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-controller="Home" asp-action="Login" method="post">
+                @if (ViewBag.Message == "Necesita llenar todos los campos del formulario")
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             <div class="mb-4">
                 <label asp-for="Matricula" class="control-label"></label>
                 <input asp-for="Matricula" class="form-control" type="text"/>
-                <span asp-validation-for="Matricula" class="text-danger"></span>
+                @if (ViewBag.Message == "La Matricula registrada no existe, debe ser ingresado al sistema")
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             </div>
             <div class="form-outline mb-4">
                 <label asp-for="Contraseña" class="control-label"></label>
                 <input asp-for="Contraseña" class="form-control" type="password" />
-                <span asp-validation-for="Contraseña" class="text-danger"></span>
+                @if (ViewBag.Message == "La contraseña es inválida")
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             </div>
             <div class="form-group d-flex ">
                 <input type="submit" value="Login" class="btn btn-block btn-acceder" />
