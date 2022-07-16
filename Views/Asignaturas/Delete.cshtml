@@ -27,7 +27,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdAsignatura" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="btn btn-info sm"asp-action="Index">Volver</a>
+        <input  onclick="return confirm('¿Seguro que desea realizar esta acción?')" type="submit" value="Delete" class="btn btn-danger btn-sm w-25" /> |
+        <a class="btn btn-danger btn-sm w-25"asp-action="Index">Volver</a>
     </form>
 </div>

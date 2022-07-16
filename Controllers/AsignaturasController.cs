@@ -60,28 +60,30 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
             ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
 
-            if (oAsignaturaVM.oAsignatura.CodigoAsignatura == null || oAsignaturaVM.oAsignatura.NombreAsignatura == null || oAsignaturaVM.oAsignatura.Credito == 0 || oAsignaturaVM.oAsignatura.CodigoArea ==  null)
-            {
-                return View("Create", oAsignaturaVM);
-            }
-
-            if(_indiceContext.Asignaturas.FirstOrDefault(s => s.CodigoAsignatura == oAsignaturaVM.oAsignatura.CodigoAsignatura) != null)
-            {
-                ViewBag.Message = "El código de la asignatura ya existe en el sistema";
-                return View("Create", oAsignaturaVM);
-            }
-
-            if (_indiceContext.Asignaturas.FirstOrDefault(s => s.NombreAsignatura == oAsignaturaVM.oAsignatura.NombreAsignatura) != null)
-            {
-                ViewBag.Message = "El nombre de la asignatura ya existe en el sistema";
-                return View("Create", oAsignaturaVM);
-            }
 
             try
             {
                 oAsignaturaVM.oAsignatura.VigenciaAsignatura = true;
                 if(oAsignaturaVM.oAsignatura.IdAsignatura == 0)
+                {
+                    if (oAsignaturaVM.oAsignatura.CodigoAsignatura == null || oAsignaturaVM.oAsignatura.NombreAsignatura == null || oAsignaturaVM.oAsignatura.Credito == 0 || oAsignaturaVM.oAsignatura.CodigoArea == null)
+                    {
+                        return View("Create", oAsignaturaVM);
+                    }
+
+                    if (_indiceContext.Asignaturas.FirstOrDefault(s => s.CodigoAsignatura == oAsignaturaVM.oAsignatura.CodigoAsignatura) != null)
+                    {
+                        ViewBag.Message = "El código de la asignatura ya existe en el sistema";
+                        return View("Create", oAsignaturaVM);
+                    }
+
+                    if (_indiceContext.Asignaturas.FirstOrDefault(s => s.NombreAsignatura == oAsignaturaVM.oAsignatura.NombreAsignatura) != null)
+                    {
+                        ViewBag.Message = "El nombre de la asignatura ya existe en el sistema";
+                        return View("Create", oAsignaturaVM);
+                    }
                     _indiceContext.Asignaturas.Add(oAsignaturaVM.oAsignatura);
+                }
                 else
                     _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
 

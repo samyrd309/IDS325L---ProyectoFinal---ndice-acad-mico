@@ -48,14 +48,14 @@ else{
             <div class="mb-2">
                 @if(Model.oAsignatura.IdAsignatura == 0)
                 {
-                    <button class="btn btn-primary btn-sm w-25">Crear</button>
+                    <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-danger btn-sm w-25">Crear</button>
                 }
                 else
                 {
-                    <button class="btn btn-success btn-sm w-25">Actualizar</button>
+                    <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-danger btn-sm w-25">Actualizar</button>
                 }
 
-                <a class="btn btn-success" asp-action="Index" asp-controller="Asignaturas">Volver</a>
+                <a class="btn btn-danger btn-sm w-25" asp-action="Index" asp-controller="Asignaturas">Volver</a>
             </div>
 
         </form>

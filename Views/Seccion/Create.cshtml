@@ -30,20 +30,20 @@ else{
 
             <div class="mb-2">
                  <label class="form-label" >Nombre docente</label>
-                <select class="form-select form-select-sm" asp-for="oSeccion.Matricula" asp-items="@ViewBag.DocenteList">
+                <select class="form-select form-select-sm" asp-for="oSeccion.Matricula" asp-items="@Model.oDocente">
                     <option selected disabled>--Seleccionar--</option>
                 </select>
             </div>
 
             @if(Model.oSeccion.IdSeccion == 0)
             {
-                <button class="btn btn-primary w-25" type="submit">Crear</button>
+                <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-danger btn-sm w-25" type="submit">Crear</button>
             }
             else
             {
-                <button class="btn btn-success" type="submit">Actualizar</button>
+                <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-danger btn-sm w-25" type="submit">Actualizar</button>
             }
-            <a class="btn btn-dark btn-sm" asp-action="Index" asp-controller="Seccion">Volver</a>
+            <a class="btn btn-danger btn-sm" asp-action="Index" asp-controller="Seccion">Volver</a>
 
             
 

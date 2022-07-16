@@ -39,9 +39,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                         Text = asignatura.NombreAsignatura,
                         Value = asignatura.IdAsignatura.ToString()
                     }).ToList(),
-                    oDocente = _indiceContext.Personas.Where(c => c.IdRol.Equals(3)).Select(docente => new SelectListItem()
+                    oDocente = _indiceContext.Personas.Where(c => c.IdRol.Equals(3)&&c.VigenciaPersona.Equals(true)).Select(docente => new SelectListItem()
                     {
-                        Text = docente.Nombre,
+                        Text = docente.Nombre + ' ' + docente.Apellido,
                         Value = docente.Matricula.ToString()
                     }).ToList()
 
