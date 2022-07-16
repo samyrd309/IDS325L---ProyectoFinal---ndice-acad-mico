@@ -30,7 +30,7 @@ else{
 
             <div class="mb-2">
                  <label class="form-label" >Nombre docente</label>
-                <select class="form-select form-select-sm" asp-for="oSeccion.Matricula" asp-items="@Model.oDocente">
+                <select class="form-select form-select-sm" asp-for="oSeccion.Matricula" asp-items="@ViewBag.DocenteList">
                     <option selected disabled>--Seleccionar--</option>
                 </select>
             </div>

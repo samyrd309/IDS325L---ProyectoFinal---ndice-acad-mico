@@ -65,13 +65,13 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(SeccionVM oSeccionVM)
         {
-            try
+
+            if (oSeccionVM.oSeccion.NumeroSeccion != null || oSeccionVM.oSeccion.Matricula != null || oSeccionVM.oSeccion.IdAsignatura != null)
             {
                 oSeccionVM.oSeccion.VigenciaSección = true;
                 if (oSeccionVM.oSeccion.IdSeccion == 0)
                 {
                     _indiceContext.Seccions.Add(oSeccionVM.oSeccion);
-
                 }
                 else
                 {
@@ -80,9 +80,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 _indiceContext.SaveChanges();
                 return RedirectToAction("Index", "Seccion");
             }
-            catch(Exception ex)
+            else
             {
-                return View(ex);
+                ViewBag.Message = "Debe ingresar todas las informaciones del formulario";
+                return View("Create", oSeccionVM);
             }
         }
 
