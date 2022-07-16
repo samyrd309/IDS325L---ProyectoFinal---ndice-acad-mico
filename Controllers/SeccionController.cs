@@ -164,7 +164,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
 
 
-        public JsonResult GetEstudiante(int IdSeccion, int IdAsignatura)
+        public JsonResult GetEstudiante(int? IdSeccion, int IdAsignatura)
         {
 
             int NroPeticion = Convert.ToInt32(Request.Form["draw"].FirstOrDefault() ?? "0");
@@ -175,11 +175,17 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
             string ValorBuscado = Request.Form["search[value]"].FirstOrDefault() ?? "";
 
-            IQueryable<Calificacion> query = _indiceContext.Calificacions.Where(c => c.IdAsignatura == IdAsignatura && c.IdSeccion == IdSeccion);
-
+            var query = from Calificacion in _indiceContext.Set<Calificacion>()
+                                            join Estudiante in _indiceContext.Set<Persona>()
+                                                 on new { Calificacion.IdSeccion, Calificacion.Matricula, Calificacion.IdAsignatura } equals new {IdSeccion, Estudiante.Matricula, IdAsignatura}
+                                            join Asignatura in _indiceContext.Set<Asignatura>()
+                                                 on Calificacion.IdAsignatura equals Asignatura.IdAsignatura
+                                            join Seccion in _indiceContext.Set<Seccion>()
+                                                on Calificacion.IdSeccion equals Seccion.IdSeccion
+                        select new {Estudiante.Matricula, Estudiante.Nombre, Estudiante.Apellido, Asignatura.CodigoAsignatura, Seccion.NumeroSeccion };
             int count = query.Count();
 
-            query = query.Where(e => e.Matricula.ToString().Contains(ValorBuscado));
+            query = query.Where(e =>string.Concat(e.Nombre, e.Apellido).Contains(ValorBuscado));
 
             int filterquery = query.Count();
 

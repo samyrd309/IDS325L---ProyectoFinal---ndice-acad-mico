@@ -3,7 +3,7 @@
 
 <h1>Gestionar estudiantes</h1>
 
-<a class="btn btn-success btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona">Crear Estudiante</a>
+<a class="btn btn-danger btn-sm w-25 mt-2 mb-2 mt-3 mb-4" asp-action="CreateEstudiantes" asp-controller="Persona">Crear Estudiante</a>
 
 <table class="table">
     <thead>
@@ -28,7 +28,7 @@
                 <td>@item.Apellido</td>
                 <td>@item.CorreoElectronico</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="CreateEstudiantes" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Persona" asp-route-Matricula="@item.Matricula">Eliminar</a>
                 </td>
             </tr>

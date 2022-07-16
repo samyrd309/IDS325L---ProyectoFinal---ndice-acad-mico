@@ -30,7 +30,7 @@
                 @if(@item.Nota == null)
                 {
                     <td>
-                        <a class="btn btn-success btn-sm" asp-action="Publicar" asp-controller="Calificacion" asp-route-Trimestre="@item.Trimestre" asp-route-IdAsignatura="@item.IdAsignatura"  asp-route-Matricula="@item.Matricula" >Publicar</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Publicar" asp-controller="Calificacion" asp-route-Trimestre="@item.Trimestre" asp-route-IdAsignatura="@item.IdAsignatura"  asp-route-Matricula="@item.Matricula" >Publicar</a>
                     </td>
                 }
                 else
@@ -46,5 +46,5 @@
 </table>
 
 <div>
-    <a class="btn btn-info btn-sm" asp-action="IndexAsignaturasDocente" asp-controller="Calificacion" asp-route-Matricula="@ViewBag.matricula">Volver</a>
+    <a class="btn btn-danger btn-sm" asp-action="IndexAsignaturasDocente" asp-controller="Calificacion" asp-route-Matricula="@ViewBag.matricula">Volver</a>
 </div>

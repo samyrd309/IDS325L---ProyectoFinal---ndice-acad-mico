@@ -91,14 +91,14 @@ else{
             <div class="mb-2"> 
              @if(Model.oPersona.Matricula == 0)
                 {
-                    <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-primary btn-sm w-25" type="submit">Crear</button>
+                    <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn btn-danger btn-sm w-25" type="submit">Crear</button>
                 }
                 else
                 {
-                    <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-success btn-sm w-25" type="submit">Actualizar</button>
+                    <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-danger btn-sm w-25" type="submit">Actualizar</button>
                 }
 
-                <a class="btn btn-dark btn-sm" asp-action="IndexEstudiantes" asp-controller="Persona">Volver  </a>
+                <a class="btn btn-dark btn-sm w-25" asp-action="IndexEstudiantes" asp-controller="Persona">Volver  </a>
              </div>
 
         </form>

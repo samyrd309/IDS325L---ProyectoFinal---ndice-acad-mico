@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreateAsignarEstudiantes</h1>
+<h1>Asignar estudiantes</h1>
 
 
 
@@ -37,6 +37,8 @@
         <thead>
             <tr>
                 <th>Matricula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Asignatura</th>
                 <th>Seccion</th>
             </tr>
@@ -69,8 +71,10 @@
                 },
                 "columns": [
                     {"data" : "matricula"},
-                    {"data" : "idAsignatura"},
-                    {"data" : "idSeccion"}
+                    {"data" : "nombre"},
+                    {"data" : "apellido"},
+                    {"data" : "codigoAsignatura"},
+                    {"data" : "numeroSeccion"}
                 ]
             });
         });
