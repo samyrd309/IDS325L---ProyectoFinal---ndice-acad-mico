@@ -105,22 +105,3 @@ else{
         </form>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        function sumbitForm(form) {
-            swal({
-                title: "¿Está seguro?",
-                icon: "warning",
-                buttons = true,
-                dangerMode = true,
-            })
-            .then((isOkay) => {
-                if (isOkay) {
-                    form.sumbit();
-                }
-            });
-        return false;
-        }
-    </script>
-}
