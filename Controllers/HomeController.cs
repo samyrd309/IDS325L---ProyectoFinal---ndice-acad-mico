@@ -26,9 +26,9 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         public static Persona usuario = new Persona();
 
-        public Task<ViewResult> Login()
+        public ActionResult Login()
         {
-            return Task.FromResult(View());
+            return View();
         }
 
         public ActionResult Help()
@@ -39,7 +39,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
         //POST: Usuario
         [HttpPost]
-        public async Task<IActionResult> Login(int? Matricula, string? Contraseña)
+        public async Task<IActionResult> Login(int? Matricula, string Contraseña)
         {
 
             if (ModelState.IsValid)
@@ -47,22 +47,22 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 if(Matricula == null || Contraseña == null)
                 {
                     ViewBag.Message = string.Format("Necesita llenar todos los campos del formulario");
-                    return RedirectToAction("Login");
+                    return View();
                 }
 
                 usuario = _indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.Contraseña == Contraseña);
                 //usuario = await _indiceContext.Personas.FindAsync(Matricula, Contraseña);
 
-                if(_indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula && u.Contraseña == Contraseña) == null)
+                if(_indiceContext.Personas.FirstOrDefault(u => u.Matricula == Matricula) == null)
                 {
                     ViewBag.Message = string.Format("La Matricula registrada no existe, debe ser ingresado al sistema");
-                    return RedirectToAction("Login");
+                    return View();
                 }
 
                 if(usuario == null)
                 {
                     ViewBag.Message = string.Format("La contraseña es inválida");
-                    return RedirectToAction("Login");
+                    return View();
                 }
 
                 if (usuario != null)

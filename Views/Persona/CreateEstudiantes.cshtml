@@ -17,12 +17,16 @@ else{
     <div class="col-sm-4">
         <form asp-action="CreateEstudiantes" asp-controller="Persona" method="post">
             <input type="hidden" asp-for="oPersona.Matricula"/>
-
+                @if (ViewBag.Message != null)
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
             @if(Model.oPersona.Matricula == 0)
             {
                 <div class="mb-2"> 
                     <label class="form-label" asp-for="oPersona.Nombre">Nombre</label>
                     <input class="form-control form-control-sm" asp-for="oPersona.Nombre" type="text"/>
+                    <span asp-validation-for="oPersona.Nombre" class="text-danger"></span>
                 </div>
                 <div class="mb-2"> 
                     <label class="form-label" asp-for="oPersona.Apellido">Apellido</label>

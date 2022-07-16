@@ -34,8 +34,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         }
 
 
-
-
         //Get CreateEstudiantes
         [HttpGet]
         public ActionResult CreateEstudiantes(int Matricula)
@@ -70,7 +68,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateEstudiantes(EstudianteVM oEstudianteVM)
         {
-            try
+
+            if(oEstudianteVM.oPersona.Apellido != null || oEstudianteVM.oPersona.Nombre != null || oEstudianteVM.oPersona.CodigoArea != null || oEstudianteVM.oPersona.Carrera != null || oEstudianteVM.oPersona.Contraseña != null || oEstudianteVM.oPersona.CorreoElectronico != null)
             {
                 oEstudianteVM.oPersona.IdRol = 2;
                 oEstudianteVM.oPersona.VigenciaPersona = true;
@@ -84,10 +83,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }
                 _indiceContext.SaveChanges();
             }
-            catch (Exception)
+            else
             {
-                TempData["Error"] = "Error. El registro no ha actualizado en la base de datos";
-                return View();
+                ViewBag.Message = "Debe ingresar todas las informaciones del formulario";
+                return View("CreateEstudiantes", oEstudianteVM);
             }
            
 
