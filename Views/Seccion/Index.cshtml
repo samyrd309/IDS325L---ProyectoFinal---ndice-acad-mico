@@ -6,24 +6,25 @@
 <h1>Gestionar Secciones</h1>
 
 
-<a class="btn btn-success btn-sm" asp-action="Create" asp-controller="Seccion" asp-route-IdSeccion="0">Crear secciones </a>
+<a class="btn  btn-danger btn-sm" asp-action="Create" asp-controller="Seccion" asp-route-IdSeccion="0">Crear secciones </a>
 
 
 <table class="table">
     <thead>
         <tr>
-            <td>Id</td>
-            <td>Nombre docente</td>
             <td>Nombre asignatura</td>
             <td>Número sección</td>
+            <td>Nombre docente</td>
             <td></td>
         </tr>
     </thead>
     <tbody>
         @foreach(var item in Model){
             <tr>
-                <td>@item.IdSeccion</td>
-                @if(item.MatriculaNavigation == null)
+               
+                <td>@item.IdAsignaturaNavigation.CodigoAsignatura @item.IdAsignaturaNavigation.NombreAsignatura</td>
+                <td>@item.NumeroSeccion</td>
+                 @if(item.MatriculaNavigation == null)
                 {
                     <td>@item.Matricula</td>
                 }
@@ -31,12 +32,10 @@
                 {
                     <td>@item.Matricula - @item.MatriculaNavigation.Nombre @item.MatriculaNavigation.Apellido</td>
                 }
-                <td>@item.IdAsignaturaNavigation.CodigoAsignatura @item.IdAsignaturaNavigation.NombreAsignatura</td>
-                <td>@item.NumeroSeccion</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Seccion" asp-route-IdSeccion="@item.IdSeccion" asp-route-IdAsignatura="@item.IdAsignatura">Editar</a>
+                    <a class="btn  btn-danger btn-sm" asp-action="Create" asp-controller="Seccion" asp-route-IdSeccion="@item.IdSeccion" asp-route-IdAsignatura="@item.IdAsignatura">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="Seccion" asp-route-IdSeccion="@item.IdSeccion" asp-route-IdAsignatura="@item.IdAsignatura">Eliminar</a>
-                    <a class="btn btn-danger btn-sm" asp-action="CreateAsignarEstudiantes" asp-controller="Seccion" asp-route-IdSeccion="@item.IdSeccion" asp-route-IdAsignatura="@item.IdAsignatura">Asignar estudiantes</a>
+                    <a class="btn  btn-danger btn-sm" asp-action="CreateAsignarEstudiantes" asp-controller="Seccion" asp-route-IdSeccion="@item.IdSeccion" asp-route-IdAsignatura="@item.IdAsignatura">Asignar estudiantes</a>
                 </td>
             </tr>
         }

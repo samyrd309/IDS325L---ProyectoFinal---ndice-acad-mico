@@ -39,7 +39,7 @@ else{
                         <option selected disabled>-- Seleccionar --</option>
                     </select>
                 </div>
-                <div class="mb-2"> 
+                <div class="mb-2 d-none"> 
                     <label class="form-label" asp-for="oPersona.CarreraNavigation.CodigoCarrera">Carrera</label>
                     <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@Model.oCarrera">
                         <option selected disabled>-- Seleccionar --</option>
@@ -91,11 +91,11 @@ else{
             <div class="mb-2"> 
              @if(Model.oPersona.Matricula == 0)
                 {
-                    <button class="btn btn-primary btn-sm w-25" type="submit">Crear</button>
+                    <button onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-primary btn-sm w-25" type="submit">Crear</button>
                 }
                 else
                 {
-                    <button class="btn btn-success btn-sm w-25" type="submit">Actualizar</button>
+                    <button onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-success btn-sm w-25" type="submit">Actualizar</button>
                 }
 
                 <a class="btn btn-dark btn-sm" asp-action="IndexDocentes" asp-controller="Persona">Volver  </a>
