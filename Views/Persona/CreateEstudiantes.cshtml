@@ -3,6 +3,7 @@
     ViewData["Title"] = "CreateEstudiantes";
 }
 
+<script src="~/lib/limonte-sweetalert2/sweetalert2.min.js"></script>
 
 @if(Model.oPersona.Matricula == 0)
 {
@@ -67,13 +68,13 @@ else{
                 
                 <div class="mb-2"> 
                     <label class="form-label" asp-for="oPersona.CodigoAreaNavigation.CodigoArea">Area Academica</label>
-                    <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@Model.oAreaAcademica">
+                    <select class="form-select form-select-sm" asp-for="oPersona.CodigoArea" asp-items="@ViewBag.AreaList">
                         <option selected disabled>-- Seleccionar --</option>
                     </select>
                 </div>
                 <div class="mb-2"> 
                     <label class="form-label" asp-for="oPersona.CarreraNavigation.CodigoCarrera">Carrera</label>
-                    <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@Model.oCarrera">
+                    <select class="form-select form-select-sm" asp-for="oPersona.Carrera" asp-items="@ViewBag.CarreraList">
                         <option selected disabled>-- Seleccionar --</option>
                     </select>
                 </div>
@@ -104,4 +105,3 @@ else{
         </form>
     </div>
 </div>
-
