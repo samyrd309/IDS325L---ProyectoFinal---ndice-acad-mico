@@ -54,7 +54,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 }).ToList()
             };
 
-            if(Matricula != 0)
+            ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _indiceContext.Carreras.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
+
+            if (Matricula != 0)
             {
                 oEstudianteVM.oPersona = _indiceContext.Personas.Find(Matricula);
             }
@@ -68,8 +71,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateEstudiantes(EstudianteVM oEstudianteVM)
         {
+            ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
+            ViewBag.CarreraList = _indiceContext.Carreras.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
 
-            if(oEstudianteVM.oPersona.Apellido != null || oEstudianteVM.oPersona.Nombre != null || oEstudianteVM.oPersona.CodigoArea != null || oEstudianteVM.oPersona.Carrera != null || oEstudianteVM.oPersona.Contraseña != null || oEstudianteVM.oPersona.CorreoElectronico != null)
+            if (oEstudianteVM.oPersona.Apellido != null || oEstudianteVM.oPersona.Nombre != null || oEstudianteVM.oPersona.CodigoArea != null || oEstudianteVM.oPersona.Carrera != null || oEstudianteVM.oPersona.Contraseña != null || oEstudianteVM.oPersona.CorreoElectronico != null)
             {
                 oEstudianteVM.oPersona.IdRol = 2;
                 oEstudianteVM.oPersona.VigenciaPersona = true;
@@ -155,8 +160,6 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                 ViewBag.Message = "Debe ingresar todas las informaciones del formulario";
                 return View("CreateDocentes", oDocenteVM);
             }
-
-           
         }
 
 
