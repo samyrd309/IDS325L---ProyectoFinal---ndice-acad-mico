@@ -112,8 +112,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         {
 
             List<Calificacion> lista = _indiceContext.Calificacions.Include(c => c.MatriculaNavigation).Include(c => c.IdAsignaturaNavigation).Where(c => c.VigenciaCalificacion.Equals(true) && c.IdAsignaturaNavigation.VigenciaAsignatura.Equals(true) && c.IdSeccion == IdSeccion && c.IdAsignatura == IdAsignatura && c.MatriculaNavigation.VigenciaPersona.Equals(true)).ToList();
-            ViewBag.matricula = MatriculaDocente;
-            
+            //ViewBag.matricula = MatriculaDocente;
+
+            ViewBag.matricula = _indiceContext.Seccions.Find(IdSeccion, IdAsignatura).Matricula; 
+
             return View(lista);
         }
 
