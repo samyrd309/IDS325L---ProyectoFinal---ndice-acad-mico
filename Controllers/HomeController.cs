@@ -90,7 +90,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     }
                     else if (usuario.IdRol == 3)
                     {
-                        TempData["MatriculaUsuario"] = usuario.Matricula;
+                        ViewBag["MatriculaUsuario"] = Matricula;
                         return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario);
                     }
                     else
