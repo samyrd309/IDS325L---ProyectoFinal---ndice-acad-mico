@@ -71,15 +71,16 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateEstudiantes(EstudianteVM oEstudianteVM)
         {
+
             ViewBag.AreaList = _indiceContext.AreaAcademicas.Select(x => new SelectListItem { Value = x.CodigoArea, Text = x.NombreArea }).ToList();
             ViewBag.CarreraList = _indiceContext.Carreras.Select(x => new SelectListItem { Value = x.CodigoCarrera, Text = x.NombreCarrera }).ToList();
-
             if (oEstudianteVM.oPersona.Apellido != null || oEstudianteVM.oPersona.Nombre != null || oEstudianteVM.oPersona.CodigoArea != null || oEstudianteVM.oPersona.Carrera != null || oEstudianteVM.oPersona.Contraseña != null || oEstudianteVM.oPersona.CorreoElectronico != null)
             {
                 oEstudianteVM.oPersona.IdRol = 2;
                 oEstudianteVM.oPersona.VigenciaPersona = true;
                 if (oEstudianteVM.oPersona.Matricula == 0)
                 {
+                    
                     _indiceContext.Personas.Add(oEstudianteVM.oPersona);
                 }
                 else
@@ -91,6 +92,8 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             else
             {
                 ViewBag.Message = "Debe ingresar todas las informaciones del formulario";
+
+               
                 return View("CreateEstudiantes", oEstudianteVM);
             }
            

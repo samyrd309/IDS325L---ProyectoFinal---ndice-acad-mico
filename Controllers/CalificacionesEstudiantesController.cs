@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "2")]
     public class CalificacionesEstudiantesController : Controller
     {
         
@@ -67,7 +67,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             var query = from Calificacion in _indiceContext.Set<Calificacion>()
                         join Asignatura in _indiceContext.Set<Asignatura>()
                             on new { Calificacion.IdAsignatura, Calificacion.Matricula } equals new { Asignatura.IdAsignatura, Matricula }
-                        where Calificacion.Nota != null
+                        where Calificacion.Nota != null 
                         select new { Asignatura.CodigoAsignatura, Asignatura.NombreAsignatura, Asignatura.Credito, Calificacion.Trimestre, Calificacion.Nota };
 
             int count = query.Count();
@@ -97,7 +97,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
 
             string ValorBuscado = Request.Form["search[value]"].FirstOrDefault() ?? "";
 
-            IQueryable<Persona> query = _indiceContext.Personas.Where(x => x.VigenciaPersona == true && x.IdRol == 2);
+            IQueryable<Persona> query = _indiceContext.Personas.Where(x => x.VigenciaPersona == true && x.IdRol == 2).OrderByDescending(c=>c.Indice);
 
             int count = query.Count();
 

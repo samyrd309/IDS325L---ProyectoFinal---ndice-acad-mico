@@ -64,7 +64,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             try
             {
                 oAsignaturaVM.oAsignatura.VigenciaAsignatura = true;
-                if(oAsignaturaVM.oAsignatura.IdAsignatura == 0)
+                if (oAsignaturaVM.oAsignatura.IdAsignatura == 0)
                 {
                     if (oAsignaturaVM.oAsignatura.CodigoAsignatura == null || oAsignaturaVM.oAsignatura.NombreAsignatura == null || oAsignaturaVM.oAsignatura.Credito == 0 || oAsignaturaVM.oAsignatura.CodigoArea == null)
                     {
@@ -85,7 +85,18 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     _indiceContext.Asignaturas.Add(oAsignaturaVM.oAsignatura);
                 }
                 else
-                    _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
+                {
+                    if (AsignaturaExists(oAsignaturaVM.oAsignatura.NombreAsignatura, oAsignaturaVM.oAsignatura.IdAsignatura))
+                    {
+                        ViewBag.Message = "El nombre de la asignatura ya existe en el sistema";
+                        return View("Create", oAsignaturaVM);
+                    }
+                    else 
+                    {
+
+                        _indiceContext.Asignaturas.Update(oAsignaturaVM.oAsignatura);
+                    }
+                }
 
                 _indiceContext.SaveChanges();
 
@@ -121,6 +132,11 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
             _indiceContext.SaveChanges();
 
             return RedirectToAction("Index", "Asignaturas");
+        }
+
+        private bool AsignaturaExists(string nombre, int IdAsignatura)
+        {
+            return (_indiceContext.Asignaturas?.Any(e => e.NombreAsignatura == nombre && e.IdAsignatura != IdAsignatura)).GetValueOrDefault();
         }
     }
 }
