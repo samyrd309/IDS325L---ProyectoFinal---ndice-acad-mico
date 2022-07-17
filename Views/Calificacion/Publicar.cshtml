@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <div class="col mb-2">
             <button  onclick="return confirm('¿Seguro que desea realizar esta acción?')" class="btn btn-danger btn-sm" type="submit">Guardar</button>
-            <a class="btn btn-danger btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion" asp-route-IdSeccion="@Model.IdSeccion" asp-route-IdAsignatura="@Model.IdAsignatura" asp-route-Trimestre="@Model.Trimestre" asp-route-MatriculaDocente="@ViewBag.MatriculaDocente">Volver</a>
+            <a class="btn btn-danger btn-sm" asp-action="IndexPublicar" asp-controller="Calificacion" asp-route-IdSeccion="@Model.IdSeccion" asp-route-IdAsignatura="@Model.IdAsignatura" asp-route-Trimestre="@Model.Trimestre" asp-route-Matricula="@TempData["MatriculaUsuario"]"> Volver</a>
         </div>
     </div>
 </form>

@@ -64,9 +64,10 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     ViewBag.Message = string.Format("La contraseña es inválida");
                     return View();
                 }
-
+               
                 if (usuario != null)
                 {
+
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, usuario.Nombre),
@@ -89,6 +90,7 @@ namespace IDS325L___ProyectoFinal___Índice_académico.Controllers
                     }
                     else if (usuario.IdRol == 3)
                     {
+                        TempData["MatriculaUsuario"] = usuario.Matricula;
                         return RedirectToAction("IndexAsignaturasDocente", "Calificacion", usuario);
                     }
                     else
